@@ -13,11 +13,12 @@ import {
 } from 'react-native';
 
 export default class PawsAndStripesNativeApp extends Component {
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+        Welcome to your Tim Tracking Portal
         </Text>
         <Text style={styles.instructions}>
           To get started, edit index.android.js
