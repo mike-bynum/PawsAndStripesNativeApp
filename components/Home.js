@@ -1,6 +1,6 @@
 import React, { Component} from 'react'
 import { Button } from 'react-native'
-import { TouchableOpacity, Picker, StyleSheet, View, Text, Dimensions } from 'react-native'
+import { TouchableOpacity, Picker, StyleSheet, View, Text,Image,  Dimensions } from 'react-native'
 import { WheelPicker, DatePicker, TimePicker} from 'react-native-wheel-picker-android'
 
 
@@ -14,14 +14,18 @@ const Home = () => {
        console.log("Selected time: ", hour, ': ', minute);
    };
    //Used to let the user select the number of hours volunteered
-   let arr = [0,1,2,3,4,5,6,7,8,9,10,11,12];
+   let arr = ["1 Hour","2 Hours","3 Hours"
+            ,"4 Hours","5 Hours","6 Hours"
+            ,"7 Hours","8 Hours","9 Hours"
+            ,"10 Hours","11 Hours","12 Hours"];
    let now = new Date();
 
 
        return (
 
       
-         <View style = {styles.container}>
+         <Image source={require('./img/paws-screen2-bg.png')}
+          style = {[styles.container,styles.bgImg]}>
         {/*
             * HEADER 
         */}
@@ -39,23 +43,29 @@ const Home = () => {
         />
         */}
     
+        
         {/*
             * TIME PICKER
-              */}
+        */}
         
-    <View style={styles.wp_view}>
-            <WheelPicker
+         <View style={styles.wp_view}>
+                <WheelPicker
                 onItemSelected={(event) => {console.log(event)}}
                 isCurved
-                isCyclic
                 visibleItemCount={2}
-                itemSpace={50}
-                itemTextSize={150}
-                inidcatorColor="red"
+                itemSpace={1}
+                itemStyle={{color:"red", fontSize:40}}
+                // itemTextSize={100}
+                // itemTextColor="#9c8158"
+               
                 data={arr}
-                style = {styles.wheelpicker}/>
-    </View>
-
+                style = {styles.wheelpicker}
+                
+                
+                />
+                
+                
+        </View>
     
 
         {/*
@@ -69,7 +79,7 @@ const Home = () => {
             
            
        
-        </View>
+        </Image>
     );
 }
 export default Home
@@ -77,35 +87,55 @@ export default Home
 const styles =  StyleSheet.create({
         
         container: { 
+        flex:1,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'black',
-        height: 650,
-        width: 600
 
     },
+    bgImg:{
+        flex:1
+    },
+    label:{
+        color: "white",
+        fontSize: 15,
+        marginBottom:10,
+        marginTop:70,
+    },
     wp_text:{
-        fontSize: 50
+        
+
     },
     wp_view:{
-        width:100,
-        height:100,
-        borderWidth:2,
-        borderRadius: 500,
-        borderColor: "white",
-        justifyContent: 'center',
+        flexDirection: 'column',
+        justifyContent:'center',
         alignItems: 'center',
+        width:150,
+        height:150,
+        borderWidth:3,
+        borderRadius: 300,
+        borderColor: "white",
+        
         marginTop: 100,
         marginBottom: 100,
+        paddingTop:10,
+        paddingBottom:10,
+       
 
     
     },
     wheelpicker: {
-        width:300, 
-        height:150,
-        marginBottom: 100,
-        marginTop: 100,
+        flexDirection: 'column',
+        justifyContent:'center',
+        alignItems: 'center',
+        width:140, 
+        height:120,
+        marginTop: 15,
+        marginBottom: 15,
+        borderRadius: 500,
+        borderColor: "white",
+        borderWidth:2
       
     },
     datePicker: {
