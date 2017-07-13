@@ -1,7 +1,3 @@
 rootProject.name = 'PawsAndStripesNativeApp'
-include ':react-native-wheel-picker-android'
-project(':react-native-wheel-picker-android').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-wheel-picker-android/android')
 
 include ':app'
-include ':react-native-smart-splashscreen'
-project(':react-native-smart-splashscreen').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-smart-splash-screen/android')
