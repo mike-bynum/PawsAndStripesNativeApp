@@ -11,14 +11,22 @@ import {
   Text,
   View
 } from 'react-native';
-import Home from './components/Home.js';
 
 export default class PawsAndStripesNativeApp extends Component {
 
   render() {
     return (
       <View style={styles.container}>
-        <Home/>
+        <Text style={styles.welcome}>
+        Welcome to your Tim Tracking Portal
+        </Text>
+        <Text style={styles.instructions}>
+          To get started, edit index.android.js
+        </Text>
+        <Text style={styles.instructions}>
+          Double tap R on your keyboard to reload,{'\n'}
+          Shake or press menu button for dev menu
+        </Text>
       </View>
     );
   }
@@ -29,8 +37,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:"black"// '#F5FCFF',
-  }
+    backgroundColor: '#F5FCFF',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
 });
 
 AppRegistry.registerComponent('PawsAndStripesNativeApp', () => PawsAndStripesNativeApp);
