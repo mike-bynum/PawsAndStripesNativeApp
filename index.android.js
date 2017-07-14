@@ -9,26 +9,59 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View, 
+  TouchableOpacity,
+  Button
 } from 'react-native';
+import Routes from './router/Router.js';
 import Home from './components/Home.js';
 
-export default class PawsAndStripesNativeApp extends Component {
+import { StackNavigator } from 'react-navigation';
+
+class HomeScreen extends Component {
+  static navigationOptions = { title: 'Welcome',};
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
-      <View style={styles.container}>
-        <Home/>
+      <View>
+        <Text>
+          Home
+        </Text>
+        <Button
+          onPress={() => navigate('Validation')}
+          title = 'Validation'
+        />
+      </View>
+      
+    );
+  }
+}
+
+class ValidationScreen extends Component{
+  static navigationOptions = {title: "Validation"}
+  render() {
+    const { navigate } = this.props.navigation;
+    return (
+      <View>
+        <Text>
+          Validation!
+        </Text>
+        
       </View>
     );
   }
 }
 
+const PawsAndStripesNativeApp = StackNavigator({
+  Home: {screen: HomeScreen},
+  Validation: {screen: ValidationScreen},
+});
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     backgroundColor:"black"// '#F5FCFF',
   }
 });

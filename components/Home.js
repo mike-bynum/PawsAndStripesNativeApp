@@ -2,6 +2,7 @@ import React, { Component} from 'react'
 import { Button } from 'react-native'
 import { TouchableOpacity, Picker, StyleSheet, View, Text,Image,  Dimensions } from 'react-native'
 import { WheelPicker, DatePicker, TimePicker} from 'react-native-wheel-picker-android'
+import { StackNavigator } from 'react-navigation'
 
 
 const Home = () => {
@@ -20,12 +21,11 @@ const Home = () => {
             ,"10 Hours","11 Hours","12 Hours"];
    let now = new Date();
 
-
-       return (
-
-      
-         <Image source={require('./img/paws-screen2-bg.png')}
-          style = {[styles.container,styles.bgImg]}>
+        const { navigate } = this.props.navigation;
+    return (
+        
+        <Image source={require('./img/paws-screen2-bg.png')}
+            style = {styles.container}>
         {/*
             * HEADER 
         */}
@@ -54,31 +54,22 @@ const Home = () => {
                 isCurved
                 visibleItemCount={2}
                 itemSpace={1}
-                itemStyle={{color:"red", fontSize:40}}
-                // itemTextSize={100}
-                // itemTextColor="#9c8158"
-               
+                itemTextSize={70}
+                itemTextColor="#9c8158"
                 data={arr}
                 style = {styles.wheelpicker}
-                
-                
-                />
-                
-                
+                />     
         </View>
     
 
         {/*
             * SUBMIT BUTTON
         */}
-            <TouchableOpacity style = {styles.submit}>
+            <TouchableOpacity style = {styles.submit} onPress={() => navigate('Valication')}>
                 <Text style = {styles.text}>
                     Submit 
                 </Text>
             </TouchableOpacity>
-            
-           
-       
         </Image>
     );
 }
@@ -86,10 +77,10 @@ export default Home
 
 const styles =  StyleSheet.create({
         
-        container: { 
+    container: { 
         flex:1,
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: 'black',
 
