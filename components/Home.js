@@ -1,18 +1,34 @@
 import React, { Component} from 'react'
 import { Button } from 'react-native'
-import { TouchableOpacity, Picker, StyleSheet, View, Text,Image,  Dimensions } from 'react-native'
+import { TouchableOpacity, Picker, StyleSheet, View, Text,Image,Alert, Dimensions } from 'react-native'
 import { WheelPicker, DatePicker, TimePicker} from 'react-native-wheel-picker-android'
+import { StackNavigator } from 'react-navigation';
 
 
 const Home = () => {
-
-
-    const handlePress=() => false
+    const navigationOptions = {
+        title: 'welcome',
+    };
+    // Class Variables
+    var hour_value = 0; 
     let { width, height } = Dimensions.get('window');
+  
+  // When the submit button is triggered call the next page, and set the state
+   _onPressButton = () => {
+       Alert.alert("The Selected Time is:" + this.hour_value);
+   }
+   // When the Hour Picker wheel changes set the hour_value
+   // variable to be returned in view2
+     _setHour = (hour) => {
+        this.hour_value = hour;
+        console.log("Hour is: " + this.hour_value);
+   }
+   // Getter method to return hour_value.. Doesn't work :-(
+   _getHour = () => {
+       return this.hour_value;
+   }
 
-   _onValueChange = (hour, minute) => {
-       console.log("Selected time: ", hour, ': ', minute);
-   };
+
    //Used to let the user select the number of hours volunteered
    let arr = ["1 Hour","2 Hours","3 Hours"
             ,"4 Hours","5 Hours","6 Hours"
@@ -24,8 +40,8 @@ const Home = () => {
        return (
 
       
-         <Image source={require('./img/paws-screen2-bg.png')}
-          style = {[styles.container,styles.bgImg]}>
+         <View // source={require('./img/paws-screen2-bg.png')}
+          style = {[styles.container]}>
         {/*
             * HEADER 
         */}
@@ -50,18 +66,14 @@ const Home = () => {
         
          <View style={styles.wp_view}>
                 <WheelPicker
-                onItemSelected={(event) => {console.log(event)}}
-                isCurved
-                visibleItemCount={2}
-                itemSpace={1}
-                itemStyle={{color:"red", fontSize:40}}
-                // itemTextSize={100}
-                // itemTextColor="#9c8158"
-               
-                data={arr}
-                style = {styles.wheelpicker}
-                
-                
+                    onItemSelected={(event) => {_setHour(event["data"])}}
+                    isCurved
+                    visibleItemCount={2}
+                    itemSpace={1}
+                    itemStyle={{color:"red", fontSize:200}}
+                    selectedItemPosition={0}
+                    data={arr}
+                    style = {styles.wheelpicker}
                 />
                 
                 
@@ -71,7 +83,7 @@ const Home = () => {
         {/*
             * SUBMIT BUTTON
         */}
-            <TouchableOpacity style = {styles.submit}>
+            <TouchableOpacity onPress={_onPressButton} style = {styles.submit}>
                 <Text style = {styles.text}>
                     Submit 
                 </Text>
@@ -79,7 +91,7 @@ const Home = () => {
             
            
        
-        </Image>
+        </View>
     );
 }
 export default Home

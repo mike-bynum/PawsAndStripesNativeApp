@@ -11,25 +11,37 @@ import {
   Text,
   View
 } from 'react-native';
+
+import { StackNavigator } from 'react-navigation';
 import Home from './components/Home.js';
+import Verify from './components/Verify.js';
+import Farewell from './components/Farewell.js';
 
-export default class PawsAndStripesNativeApp extends Component {
+const PawsAndStripesNativeApp = StackNavigator ({
 
+Home: { screen: Home},
+
+})
+ {/* 
   render() {
     return (
+
+     
       <View style={styles.container}>
-        <Home/>
+        <Home/> <Verify/>  
+       <Farewell/>
       </View>
+      
     );
   }
-}
+  */}
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:"black"// '#F5FCFF',
+    backgroundColor:"white"// '#F5FCFF',
   }
 });
 
