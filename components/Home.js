@@ -5,73 +5,77 @@ import { WheelPicker, DatePicker, TimePicker} from 'react-native-wheel-picker-an
 import { StackNavigator } from 'react-navigation'
 
 
-const Home = () => {
+import ValidationScreen from './Validation.js'
+
+    let arr = ["1 Hour","2 Hours","3 Hours"
+            ,"4 Hours","5 Hours","6 Hours"
+            ,"7 Hours","8 Hours","9 Hours"
+            ,"10 Hours","11 Hours","12 Hours"];
+    let now = new Date();
 
 
-    const handlePress=() => false
-    let { width, height } = Dimensions.get('window');
 
+ class Home extends Component{
+    static navigationOptions = {header:null }
    _onValueChange = (hour, minute) => {
        console.log("Selected time: ", hour, ': ', minute);
    };
    //Used to let the user select the number of hours volunteered
-   let arr = ["1 Hour","2 Hours","3 Hours"
-            ,"4 Hours","5 Hours","6 Hours"
-            ,"7 Hours","8 Hours","9 Hours"
-            ,"10 Hours","11 Hours","12 Hours"];
-   let now = new Date();
 
-        const { navigate } = this.props.navigation;
+   render() {
+    const {navigate} = this.props.navigation;
     return (
-        
-        <Image source={require('./img/paws-screen2-bg.png')}
-            style = {styles.container}>
-        {/*
-            * HEADER 
-        */}
-            <Text style = {styles.header}>
-                Please enter your volunteer time below
-            </Text>
-
-        {/*
-            * DATE PICKER
-        
-        <DatePicker
-        initdate={now.toISOString()}
-        onDateSelected={ (date) => this.onDateSelected(date)}
-        style = {styles.datePicker}
-        />
-        */}
-    
-        
-        {/*
-            * TIME PICKER
-        */}
-        
-         <View style={styles.wp_view}>
-                <WheelPicker
-                onItemSelected={(event) => {console.log(event)}}
-                isCurved
-                visibleItemCount={2}
-                itemSpace={1}
-                itemTextSize={70}
-                itemTextColor="#9c8158"
-                data={arr}
-                style = {styles.wheelpicker}
-                />     
-        </View>
-    
-
-        {/*
-            * SUBMIT BUTTON
-        */}
-            <TouchableOpacity style = {styles.submit} onPress={() => navigate('Valication')}>
-                <Text style = {styles.text}>
-                    Submit 
+       <View  style = {styles.container}> 
+            <Image source={require('./img/paws-screen2-bg.png')}
+                style = {styles.container}>
+            {/*
+                * HEADER 
+            */}
+                <Text style = {styles.header}>
+                    Please enter your volunteer time below
                 </Text>
-            </TouchableOpacity>
-        </Image>
+
+            {/*
+                * DATE PICKER
+            
+            <DatePicker
+            initdate={now.toISOString()}
+            onDateSelected={ (date) => this.onDateSelected(date)}
+            style = {styles.datePicker}
+            />
+            */}
+        
+            
+            {/*
+                * TIME PICKER
+            */}
+            
+            <View style={styles.wp_view}>
+                    <WheelPicker
+                    onItemSelected={(event) => {console.log(event)}}
+                    isCurved
+                    visibleItemCount={2}
+                    itemSpace={1}
+                    itemTextSize={70}
+                    itemTextColor="#9c8158"
+                    data={arr}
+                    style = {styles.wheelpicker}
+                    />     
+            </View>
+        
+
+            {/*
+                * SUBMIT BUTTON
+            */}
+                <TouchableOpacity style = {styles.submit} onPress={() => navigate('Validation')}>
+                    <Text style = {styles.text}>
+                        Submit 
+                    </Text>
+                </TouchableOpacity>
+            </Image>
+        </View>
     );
+   }
 }
 export default Home
 

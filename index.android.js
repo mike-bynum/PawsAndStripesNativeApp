@@ -15,47 +15,15 @@ import {
 } from 'react-native';
 import Routes from './router/Router.js';
 import Home from './components/Home.js';
+import ValidationScreen from './components/Validation.js';
 
 import { StackNavigator } from 'react-navigation';
 
-class HomeScreen extends Component {
-  static navigationOptions = { title: 'Welcome',};
-
-  render() {
-    const { navigate } = this.props.navigation;
-    return (
-      <View>
-        <Text>
-          Home
-        </Text>
-        <Button
-          onPress={() => navigate('Validation')}
-          title = 'Validation'
-        />
-      </View>
-      
-    );
-  }
-}
-
-class ValidationScreen extends Component{
-  static navigationOptions = {title: "Validation"}
-  render() {
-    const { navigate } = this.props.navigation;
-    return (
-      <View>
-        <Text>
-          Validation!
-        </Text>
-        
-      </View>
-    );
-  }
-}
-
 const PawsAndStripesNativeApp = StackNavigator({
-  Home: {screen: HomeScreen},
+  Home: {screen: Home},
   Validation: {screen: ValidationScreen},
+},  {
+  initialRouteName: 'Home',
 });
 
 const styles = StyleSheet.create({
