@@ -15,13 +15,15 @@ import {
 } from 'react-native';
 import Routes from './router/Router.js';
 import Home from './components/Home.js';
-import ValidationScreen from './components/Validation.js';
+import Validation from './components/Validation.js';
+import Success from './components/Success.js';
 
 import { StackNavigator } from 'react-navigation';
 
 const PawsAndStripesNativeApp = StackNavigator({
   Home: {screen: Home},
-  Validation: {screen: ValidationScreen},
+  Validation: {screen: Validation},
+  Success: {screen: Success}
 },  {
   initialRouteName: 'Home',
 });

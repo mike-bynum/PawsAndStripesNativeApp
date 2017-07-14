@@ -1,25 +1,36 @@
 import React, { Component} from 'react'
 import { Button } from 'react-native'
-import { TouchableOpacity, Picker, StyleSheet, View, Text,Image,  Dimensions } from 'react-native'
+import { TouchableOpacity, Picker, StyleSheet, View, Text, Image, Dimensions, Alert } from 'react-native'
 import { WheelPicker, DatePicker, TimePicker} from 'react-native-wheel-picker-android'
-import { StackNavigator } from 'react-navigation'
 
 
 import ValidationScreen from './Validation.js'
 
-    let arr = ["1 Hour","2 Hours","3 Hours"
-            ,"4 Hours","5 Hours","6 Hours"
-            ,"7 Hours","8 Hours","9 Hours"
-            ,"10 Hours","11 Hours","12 Hours"];
-    let now = new Date();
-
-
 
  class Home extends Component{
     static navigationOptions = {header:null }
-   _onValueChange = (hour, minute) => {
-       console.log("Selected time: ", hour, ': ', minute);
-   };
+    
+   // When the Hour Picker wheel changes set the hour_value
+   // variable to be returned in view2
+    _setHour = (hour) => {
+        this.hour_value = hour;
+        // Alert.alert("Hour is: " + this.hour_value);
+        console.log("Hour is: " + this.hour_value);
+   }
+   // Getter method to return hour_value.. Doesn't work :-(
+   _getHour = () => {
+       return this.hour_value;
+   }
+
+   arr = ["1 Hour","2 Hours","3 Hours"
+            ,"4 Hours","5 Hours","6 Hours"
+            ,"7 Hours","8 Hours","9 Hours"
+            ,"10 Hours","11 Hours","12 Hours"];
+            
+    now = new Date();
+   
+
+
    //Used to let the user select the number of hours volunteered
 
    render() {
@@ -51,23 +62,23 @@ import ValidationScreen from './Validation.js'
             */}
             
             <View style={styles.wp_view}>
-                    <WheelPicker
-                    onItemSelected={(event) => {console.log(event)}}
+                <WheelPicker
+                    onItemSelected={(event) => {this._setHour(event["data"])}}
                     isCurved
                     visibleItemCount={2}
                     itemSpace={1}
                     itemTextSize={70}
                     itemTextColor="#9c8158"
-                    data={arr}
+                    data={this.arr}
                     style = {styles.wheelpicker}
-                    />     
+                />     
             </View>
         
 
             {/*
                 * SUBMIT BUTTON
             */}
-                <TouchableOpacity style = {styles.submit} onPress={() => navigate('Validation')}>
+                <TouchableOpacity onPress ={ () => {navigate('Validation', {date: "", hours: this.hour_value})}} style = {styles.submit}>
                     <Text style = {styles.text}>
                         Submit 
                     </Text>
@@ -84,7 +95,7 @@ const styles =  StyleSheet.create({
     container: { 
         flex:1,
         flexDirection: 'column',
-        justifyContent: 'flex-start',
+        justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: 'black',
 
@@ -95,8 +106,8 @@ const styles =  StyleSheet.create({
     label:{
         color: "white",
         fontSize: 15,
-        marginBottom:10,
-        marginTop:70,
+        // marginBottom:10,
+        // marginTop:70,
     },
     wp_text:{
         
@@ -112,8 +123,8 @@ const styles =  StyleSheet.create({
         borderRadius: 300,
         borderColor: "white",
         
-        marginTop: 100,
-        marginBottom: 100,
+        // marginTop: 100,
+        // marginBottom: 100,
         paddingTop:10,
         paddingBottom:10,
        
@@ -126,8 +137,8 @@ const styles =  StyleSheet.create({
         alignItems: 'center',
         width:140, 
         height:120,
-        marginTop: 15,
-        marginBottom: 15,
+        // marginTop: 15,
+        // marginBottom: 15,
         borderRadius: 500,
         borderColor: "white",
         borderWidth:2
@@ -136,8 +147,8 @@ const styles =  StyleSheet.create({
     datePicker: {
         width: 50,
         height: 100,
-        marginBottom: 10,
-        marginTop: 10,
+        // marginBottom: 10,
+        // marginTop: 10,
         paddingLeft: 500,
         backgroundColor: 'white'
 
@@ -155,7 +166,8 @@ const styles =  StyleSheet.create({
     submit: {
        justifyContent: 'flex-end',
        width: 200,
-       marginBottom: 25,
+    //    marginTop: 150,
+    //    marginBottom: 25,
        height: 75,
        backgroundColor: 'white',
        borderRadius: 50,
@@ -166,6 +178,7 @@ const styles =  StyleSheet.create({
         width: 200,
         height: 75,
         borderRadius: 50,
+        marginTop: 25,
         padding: 20,
         paddingTop: 15,
         fontSize: 30,
