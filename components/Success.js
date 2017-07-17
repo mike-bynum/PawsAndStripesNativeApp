@@ -35,6 +35,7 @@ class Success extends Component {
                 index: 0,
                 actions: [
                     NavigationActions.navigate({routeName: 'Home', params: {user: user, hours: 1}})
+
                 ]
             })
         )};
@@ -52,7 +53,6 @@ class Success extends Component {
            ]
        })
 
-
     return(
         <View style = {styles.container}>
             <Image source={require('./img/paws-screen4-bg-hi_res.png')}
@@ -61,7 +61,6 @@ class Success extends Component {
             <Text style = {styles.thank_you}>
                 Thank You!
             </Text>
-
                 <TouchableOpacity onPress={ () => {this.props.navigation.dispatch(resetAction)}} style = {styles.submit}>
                     <Text style = {styles.edit_text}>
                             submit more hours

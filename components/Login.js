@@ -17,7 +17,6 @@ import { NavigationActions } from 'react-navigation';
 
 class Login extends Component {
     static navigationOptions = {header:null}
-    
 
     constructor(props){
         super(props);
@@ -31,9 +30,7 @@ class Login extends Component {
         this._setupGoogleSignin();
     }
 
-
-        render() {
-
+    render() {
         if(!this.state.user){
             console.log("Login.js -- No User found, display Gmail Login Button");
             return(
@@ -65,9 +62,7 @@ class Login extends Component {
                 webClientId: '1076761594654-utkunpdbm4e30voj0kvuinr1v3s70ibt.apps.googleusercontent.com',
                 offlineAccess: false
             });
-
             const user = await GoogleSignin.currentUserAsync();
-            //console.log("USER: " + user.name);
             this.setState({user});
         }
         catch(err) {
@@ -78,7 +73,6 @@ class Login extends Component {
      _signIn() {
         GoogleSignin.signIn()
         .then((user) => {
-        //console.log(user);
         this.setState({user: user});
         })
         .catch((err) => {
@@ -95,8 +89,8 @@ class Login extends Component {
   }
 }
 export default Login;
-const styles = StyleSheet.create({
 
+const styles = StyleSheet.create({
     container: {
         flex:1,
         flexDirection: 'column',

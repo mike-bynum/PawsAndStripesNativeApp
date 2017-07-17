@@ -34,6 +34,7 @@ class Validation extends Component {
            index: 0,
            actions: [
                NavigationActions.navigate({routeName: 'Success' , params: {user: params.user}})
+
            ]
        })
        const backAction = NavigationActions.back({
@@ -62,8 +63,10 @@ class Validation extends Component {
             /*
              * Main Container
              */
-
         return (
+            /*
+             * Main Container
+             */
             <View style={styles.container}>
                 <Text style={styles.text_small}>
                     you volunteered for
@@ -91,7 +94,6 @@ class Validation extends Component {
                     is that correct?
                 </Text>
 
-
                  {/*
                     * Main Functionality:
                     *If
@@ -115,6 +117,7 @@ class Validation extends Component {
                                 console.log('Communication to backend was successful'); 
                                 console.log('', request.responseText);
                                 this.props.navigation.dispatch(resetAction) 
+
                             } else {
                                 console.warn('error');
                             }
@@ -122,6 +125,8 @@ class Validation extends Component {
                     var query = 'http://www.academicstudysolutions.com/pawsstripes/?email='+email +'&fname=' + fName + '&lname=' + lName + '&hours=' + hours + '&date=' + dateString;
                     console.log(query);
                     request.open('GET', query);
+
+
                         request.send();  
 
                      }
@@ -135,6 +140,7 @@ class Validation extends Component {
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={ () => {this.props.navigation.dispatch(backAction)}} style = {styles.edit}>
+
                     <Text style = {styles.edit_text}>
                         no, I need to edit my time
                     </Text>

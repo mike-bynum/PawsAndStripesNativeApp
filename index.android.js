@@ -34,7 +34,6 @@ const PawsAndStripesNativeApp = StackNavigator({
 },  {
   transitionConfig: () => ({ screenInterpolator: () => null}),
   initialRouteName: 'Login',
-
 });
 
 

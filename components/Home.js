@@ -12,8 +12,9 @@ import ValidationScreen from './Validation.js'
         header:null,
     });
     
-    state={ isDatePickerVisible: false, chosenDate: new Date()};
-    hour_value = 0;
+    state={ isDatePickerVisible: false, chosenDate: new Date(), hours: 1};
+
+
    // When the Hour Picker wheel changes set the hour_value
    // variable to be returned in view2
     _setHour = (hour) => {
@@ -26,13 +27,14 @@ import ValidationScreen from './Validation.js'
    _showDatepicker = () => this.setState({ isDatePickerVisible: true});
    _hideDatepicker = () => this.setState({ isDatePickerVisible: false});
 
-   _handleDatePicked = (date) => {
-       this.setState({chosenDate: date});
-       this._hideDatepicker();
-   }
+    _handleDatePicked = (date) => {
+        this.setState({chosenDate: date});
+        this._hideDatepicker();
+    }
 
-   arr = [1,2,3,4,5,6,7,8,9,10,11,12];       
-   now = new Date();
+    arr = [1,2,3,4,5,6,7,8,9,10,11,12];
+    now = new Date();
+
 
    //Used to let the user select the number of hours volunteered
 
@@ -55,7 +57,13 @@ import ValidationScreen from './Validation.js'
             params.date : Date 
         }
     */}
-     var index = 0;
+    index = this.arr[0]-1;
+    
+    var userName = "";
+    var fName;
+    var lName;
+
+    var index = 0;
 
     {/*
      * Test if the user had previous values
@@ -65,6 +73,15 @@ import ValidationScreen from './Validation.js'
         if(params.hours){
             index = params.hours - 1;
             this.setState({hours: params.hours});
+        } 
+        else {
+            this._setHour(index+1);
+        }
+        if(params.user){
+            userName = params.user.name;
+            fName = userName.split(" ")[0];
+            lName = userName.split(" ")[1]; 
+
         }
         if(params.user){
             userName = params.user.name;
@@ -126,10 +143,8 @@ import ValidationScreen from './Validation.js'
                     * SUBMIT BUTTON
                 */}
                 <View style={styles.submit_box}>
-                    <TouchableOpacity onPress ={ () => {
-                       navigate('Validation',{user: params.user, date: this.state.chosenDate, hours:this.state.hours})
-                    }}
-                        style = {styles.submit} >
+                    <TouchableOpacity onPress ={ () => {navigate('Validation',{user: params.user, date: this.state.chosenDate, hours: this.state.hours})}} style = {styles.submit}>
+
                         <Text style = {styles.text}>
                             Submit 
                         </Text>
@@ -191,6 +206,7 @@ const styles =  StyleSheet.create({
         fontSize: 60,
         color: 'white'
     },
+
     header_welcome: {
         fontSize: 24,
         color: 'white'
