@@ -5,20 +5,16 @@
  */
 
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View, 
-  TouchableOpacity,
-  Button
-} from 'react-native';
+import {  AppRegistry } from 'react-native';
+
 import Routes from './router/Router.js';
 import Home from './components/Home.js';
 import Validation from './components/Validation.js';
 import Success from './components/Success.js';
 
+
 import { StackNavigator } from 'react-navigation';
+
 
 
 const PawsAndStripesNativeApp = StackNavigator({
@@ -29,12 +25,5 @@ const PawsAndStripesNativeApp = StackNavigator({
   initialRouteName: 'Home',
 });
 
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    backgroundColor:"black"// '#F5FCFF',
-  }
-});
 
 AppRegistry.registerComponent('PawsAndStripesNativeApp', () => PawsAndStripesNativeApp);
