@@ -37,8 +37,8 @@ import ValidationScreen from './Validation.js';
     const {navigate} = this.props.navigation;
     return (
        <View  style = {styles.container}> 
-            <Image source={require('./img/paws-screen2-bg.png')}
-                style = {styles.container}>
+            <Image source={require('./img/paws-screen2-bg-hi_res.png')}
+                style = {styles.bgImgContainer}>
             {/*
                 * HEADER 
             */}
@@ -98,10 +98,16 @@ const styles =  StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: 'black',
+        
 
     },
-    bgImg:{
-        flex:1
+    bgImgContainer:{
+        flex:1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        resizeMode: 'contain'
+
     },
     label:{
         color: "white",

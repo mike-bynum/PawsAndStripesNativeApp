@@ -13,8 +13,8 @@ class Success extends Component {
        const {navigate} = this.props.navigation;
     return(
         <View style = {styles.container}>
-            <Image source={require('./img/paws-screen4-bg.png')}
-            style = {[styles.container, styles.bgImg]}>
+            <Image source={require('./img/paws-screen4-bg-hi_res.png')}
+            style = {styles.bgImgContainer}>
 
             <Text style = {styles.thank_you}>
                 Thank You!
@@ -42,8 +42,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
 
     },
-    bgImg:{
-        flex:1
+    bgImgContainer:{
+        flex:1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        resizeMode: 'contain'
+
     },
     submit: {
         alignItems: 'center',

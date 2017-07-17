@@ -10,13 +10,18 @@ class Splash extends Component{
 
         return(
             <View style = {styles.container}>
-                <Image source = {require('./img/paws-screen1-bg.png')} style = {styles.container}>
-                     <TouchableOpacity onPress={ () => {navigate('Home')}} style = {styles.submit}>
-                        <Text style = {styles.edit_text}>
-                            Press to continue...
-                        </Text>
-                    </TouchableOpacity>
-                </Image>
+                <TouchableOpacity onPress={ () => {navigate('Home')}} style = {styles.submit}>
+                    <Image source = {require('./img/paws-screen1-bg.png')} style = {styles.bgImgContainer}>
+                        <View style = {styles.trackerView}>
+                            <Text style = {styles.trackerText}>
+                                Volunteer Tracker
+                            </Text> 
+                        </View>
+                        <Text style = {styles.continueText}>
+                                Tap anywhere to continue.
+                            </Text>
+                    </Image>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -33,12 +38,36 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'black',
     },
-        submit: {
+    bgImgContainer:{
+        flex:1,
+        flexDirection: 'column',
+        justifyContent: 'center',
         alignItems: 'center',
-        justifyContent:'center',
-        backgroundColor: 'black',
-        width: 380,
-        height: 60,
-    },
+        resizeMode: 'contain'
 
+    },
+    submitContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        width: 200,
+        height: 75,
+        backgroundColor: 'black',
+        borderRadius: 50,
+    
+    },
+    trackerText: {
+        fontFamily: 'StardosStencil-Regular',
+        fontSize: 48,
+        textAlign: 'center',
+        color: 'white'
+    },
+    trackerView: {
+        marginTop: 40,
+        alignSelf: 'stretch',
+        backgroundColor: '#9c8158'
+    },
+    continueText: {
+        color: 'white',
+        textAlign: 'center'
+    }
 })
