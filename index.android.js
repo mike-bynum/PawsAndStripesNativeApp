@@ -14,6 +14,7 @@ import {
   Button
 } from 'react-native';
 import Routes from './router/Router.js';
+import Splash from './components/Splash.js';
 import Home from './components/Home.js';
 import Validation from './components/Validation.js';
 import Success from './components/Success.js';
@@ -21,11 +22,12 @@ import Success from './components/Success.js';
 import { StackNavigator } from 'react-navigation';
 
 const PawsAndStripesNativeApp = StackNavigator({
+  Splash: {screen: Splash},
   Home: {screen: Home},
   Validation: {screen: Validation},
   Success: {screen: Success}
 },  {
-  initialRouteName: 'Home',
+  initialRouteName: 'Splash',
 });
 
 const styles = StyleSheet.create({

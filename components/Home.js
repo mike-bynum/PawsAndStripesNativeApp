@@ -1,10 +1,10 @@
-import React, { Component} from 'react'
-import { Button } from 'react-native'
-import { TouchableOpacity, Picker, StyleSheet, View, Text, Image, Dimensions, Alert } from 'react-native'
-import { WheelPicker, DatePicker, TimePicker} from 'react-native-wheel-picker-android'
+import React, { Component} from 'react';
+import { Button } from 'react-native';
+import { TouchableOpacity, Picker, StyleSheet, View, Text, Image, Dimensions, Alert } from 'react-native';
+import { WheelPicker, DatePicker, TimePicker} from 'react-native-wheel-picker-android';
 
 
-import ValidationScreen from './Validation.js'
+import ValidationScreen from './Validation.js';
 
 
  class Home extends Component{

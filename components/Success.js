@@ -1,6 +1,6 @@
-import React, { Component} from 'react'
-import { Button } from 'react-native'
-import { TouchableOpacity, StyleSheet, View, Text,Image,Alert, Dimensions } from 'react-native'
+import React, { Component} from 'react';
+import { Button } from 'react-native';
+import { TouchableOpacity, StyleSheet, View, Text,Image,Alert, Dimensions } from 'react-native';
 
 class Success extends Component {
     static navigationOptions = {header:null }
