@@ -25,7 +25,7 @@ class Validation extends Component {
                 </Text>
 
                 <Text style={styles.text_big}>
-                    INSERT HOURS
+                    Hours
                 </Text>
 
                 <Text style={styles.text_small}>
@@ -33,7 +33,7 @@ class Validation extends Component {
                 </Text>
 
                 <Text style={styles.text_big}>
-                    INSERT DATE
+                    Date
                 </Text>
 
                 <Text style={styles.text_small}>

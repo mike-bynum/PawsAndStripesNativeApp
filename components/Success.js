@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import { Button } from 'react-native';
 import { TouchableOpacity, StyleSheet, View, Text,Image,Alert, Dimensions } from 'react-native';
 
+
 class Success extends Component {
     static navigationOptions = {header:null }
      // When the submit button is triggered call the next page, and set the state
@@ -48,7 +49,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         resizeMode: 'contain'
-
     },
     submit: {
         alignItems: 'center',
