@@ -3,15 +3,14 @@ package com.pawsandstripesnativeapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-
 import com.wheelpicker.WheelPickerPackage;
 //import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-
-
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
+import com.wheelpicker.WheelPickerPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,8 +28,10 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
 
           new MainReactPackage(),
-            new WheelPickerPackage()
+            new WheelPickerPackage(),
             //new RCTSplashScreenPackage(),
+            new RNGoogleSigninPackage()
+
       );
     }
   };

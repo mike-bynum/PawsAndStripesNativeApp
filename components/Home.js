@@ -8,20 +8,18 @@ import ValidationScreen from './Validation.js'
 
 
  class Home extends Component{
-    static navigationOptions = {header:null }
+    static navigationOptions =({ navigation }) => ({
+        header:null,
+    });
     
     state={ isDatePickerVisible: false, chosenDate: new Date()};
-
+    hour_value = 0;
    // When the Hour Picker wheel changes set the hour_value
    // variable to be returned in view2
     _setHour = (hour) => {
-        this.hour_value = hour;
+        this.setState({hours: hour.data});
         // Alert.alert("Hour is: " + this.hour_value);
-        console.log("Hour is: " + this.hour_value);
-   }
-   // Getter method to return hour_value.. Doesn't work :-(
-   _getHour = () => {
-       return this.hour_value;
+        //console.log("Hour is: " + this.hour_value);
    }
 
 
@@ -30,20 +28,51 @@ import ValidationScreen from './Validation.js'
 
    _handleDatePicked = (date) => {
        this.setState({chosenDate: date});
-
        this._hideDatepicker();
    }
 
-   arr = [1,2,3,4,5,6,7,8,9,10,11,12];
-            
-    now = new Date();
+   arr = [1,2,3,4,5,6,7,8,9,10,11,12];       
+   now = new Date();
 
    //Used to let the user select the number of hours volunteered
 
    render() {
+    const {params} = this.props.navigation.state;
     const {navigate} = this.props.navigation;
     const date = new Date();
     const dateInfo = this.state.chosenDate;
+    
+    var userName = "";
+    var fName;
+    var lName;
+
+    console.log("Home.js -- Inside Home page"); 
+    {/*
+        * params can return  {
+            params.user.name : string
+            params.user.email : string
+            params.hours : string
+            params.date : Date 
+        }
+    */}
+     var index = 0;
+
+    {/*
+     * Test if the user had previous values
+     * Entered and wanted to adjust them
+    */}
+    if(params) {
+        if(params.hours){
+            index = params.hours - 1;
+            this.setState({hours: params.hours});
+        }
+        if(params.user){
+            userName = params.user.name;
+            fName = userName.split(" ")[0];
+            lName = userName.split(" ")[1]; 
+        }
+    }
+
     return (
         <View  style = {styles.container}> 
             <Image source={require('./img/paws-screen2-bg-hi_res.png')}
@@ -51,15 +80,33 @@ import ValidationScreen from './Validation.js'
                 {/*
                     * HEADER 
                 */}
-                    <Text style = {styles.header}>
-                        Please enter your volunteer time below
-                    </Text>
-
+                */}
+                <View style = {styles.header}>
+                    <View><Text style={styles.header_welcome}>Welcome {fName},</Text></View>
+                    <View><Text style = {styles.subheader_welcome}>Please enter your volunteer time below</Text></View>
+                </View>
                 {/*
                     * DATE PICKER
                 */}          
                 <View>
-                    <Text onPress={this._showDatepicker} style={styles.date_picker}>{("0" + dateInfo.getDate()).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {("0" + (dateInfo.getMonth() + 1)).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {dateInfo.getFullYear().toString().substr(-2)}</Text>
+                    <Text onPress={this._showDatepicker} style={styles.date_picker}> {("0" + (dateInfo.getMonth() + 1)).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {("0" + dateInfo.getDate()).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {dateInfo.getFullYear().toString().substr(-2)}</Text>
+                    <View style={styles.center_align}><Text style={styles.gold_text}>Date</Text></View>
+                </View>
+                
+                <DateTimePicker
+                    isVisible={this.state.isDatePickerVisible}
+                    onConfirm={this._handleDatePicked}
+                    onCancel={this._hideDatepicker}
+                    date={this.state.chosenDate}
+                    maximumDate={new Date()}
+                    minimumDate={new Date().setDate(new Date().getDate() - 30)}
+                />
+
+                {/*
+                    * DATE PICKER
+                */}
+                <View>
+                    <Text onPress={this._showDatepicker} style={styles.date_picker}>{("0" + (this.state.chosenDate.getMonth() + 1)).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {("0" + this.state.chosenDate.getDate()).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {this.state.chosenDate.getFullYear().toString().substr(-2)}</Text>
                     <View style={styles.center_align}><Text style={styles.gold_text}>Date</Text></View>
                 </View>
                 
@@ -78,13 +125,14 @@ import ValidationScreen from './Validation.js'
                 <View style={styles.wp_view}>
                     <Text style={styles.gold_text_hours}>Hours</Text>  
                         <WheelPicker
-                            onItemSelected={(event) => {this._setHour(event["data"])}}
+                            onItemSelected={this._setHour}
                             isCurved
                             isAtmospheric
                             visibleItemCount={2}
                             itemSpace={50}
                             itemTextSize={170}
                             itemTextColor="white"
+                            selectedItemPosition={index}
                             data={this.arr}
                             style = {styles.wheelpicker}
                         /> 
@@ -95,7 +143,10 @@ import ValidationScreen from './Validation.js'
                     * SUBMIT BUTTON
                 */}
                 <View style={styles.submit_box}>
-                    <TouchableOpacity onPress ={ () => {navigate('Validation', ({date: "7/14/2017", hours: 6}))}} style = {styles.submit}>
+                    <TouchableOpacity onPress ={ () => {
+                       navigate('Validation',{user: params.user, date: this.state.chosenDate, hours:this.hour_value}) 
+                    }}
+                        style = {styles.submit} >
                         <Text style = {styles.text}>
                             Submit 
                         </Text>
@@ -191,6 +242,9 @@ const styles =  StyleSheet.create({
         borderWidth:2
       
     },
+    userInfo: {
+        color: '#9c8158'
+    },
     datePicker: {
         width: 50,
         height: 100,
@@ -201,11 +255,8 @@ const styles =  StyleSheet.create({
 
     },
      header: {
-        alignItems: 'flex-start',
-         textAlign: 'center',
-         color: 'white',
-         fontSize: 18,
-         marginTop: 20      
+        alignItems: 'center',
+        marginTop: 20      
      },
      picker: {
          backgroundColor: '#E5E5E5'

@@ -1,8 +1,12 @@
 import React, { Component} from 'react';
 import { TouchableOpacity, StyleSheet, View, Text, Image, BackHandler } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+<<<<<<< HEAD
 
 
+
+=======
+>>>>>>> Update to navigation to reduce the memory the app uses by poping the navigation stack upon completion of hour submission. Also added functionality to the android back button to navigate home from the success screen.
 
 
 class Success extends Component {
@@ -19,11 +23,14 @@ class Success extends Component {
    
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        this.state
     }
 
     componentWillUnmount(){
          BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
+<<<<<<< HEAD
+=======
 
 
    handleBackButton(){
@@ -39,10 +46,12 @@ class Success extends Component {
     }
 
     render() {
+        const {params} = this.props.navigation.state;
+        const user = params.user
         const resetAction = NavigationActions.reset({
            index: 0,
            actions: [
-               NavigationActions.navigate({routeName: 'Home'})
+               NavigationActions.navigate({routeName: 'Home', params: {user: user}})
            ]
        })
 
@@ -51,22 +60,48 @@ class Success extends Component {
         <View style = {styles.container}>
             <Image source={require('./img/paws-screen4-bg-hi_res.png')}
             style = {styles.bgImgContainer}>
+>>>>>>> Update to navigation to reduce the memory the app uses by poping the navigation stack upon completion of hour submission. Also added functionality to the android back button to navigate home from the success screen.
 
-            <Text style = {styles.thank_you}>
-                Thank You!
-            </Text>
 
+<<<<<<< HEAD
+   handleBackButton(){
+        {this.props.navigation.dispatch(NavigationActions
+            .reset({
+                index: 0,
+                actions: [
+                    NavigationActions.navigate({routeName: 'Home'})
+                ]
+            })
+        )};
+        return true;
+    }
+
+   render() {
+        const {navigate} = this.props.navigation;
+        const {params} = this.props.navigation.state;
+
+        return(
+            <View style = {styles.container}>
+                <Image source={require('./img/paws-screen4-bg-hi_res.png')}
+                    style = {styles.bgImgContainer}>
+                    <Text style = {styles.thank_you}>
+                        Thank You!
+                    </Text>
+                    <TouchableOpacity onPress={ () => {navigate('Home', {user:params.user})}} style = {styles.submit}>
+=======
             <TouchableOpacity onPress={ () => {this.props.navigation.dispatch(resetAction)}} style = {styles.submit}>
+>>>>>>> Update to navigation to reduce the memory the app uses by poping the navigation stack upon completion of hour submission. Also added functionality to the android back button to navigate home from the success screen.
                         <Text style = {styles.edit_text}>
                             submit more hours
                         </Text>
-                </TouchableOpacity>
-
-            </Image>
-        </View>
-    )
-   }
+                    </TouchableOpacity>
+                </Image>
+            </View>
+        )
+    }
 }
+      
+
 export default Success
 
 const styles = StyleSheet.create({
@@ -106,3 +141,4 @@ const styles = StyleSheet.create({
         marginTop: 100
     }
 })
+    

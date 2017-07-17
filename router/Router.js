@@ -5,7 +5,7 @@ import Home from '../components/Home.js'
 const Routes = () => (
     <Router>
         <Scene key = "root" hideNavBar>
-            <Scene key = "home" component = {Home} title = {false} initial = {true} />
+            <Scene key = "Login" component = {Login} title = {false} initial = {true} />
         </Scene>
     </Router>
 )

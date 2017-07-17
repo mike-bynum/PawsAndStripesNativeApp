@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1076761594654",
+    "project_id": "pawsandstripesnativeapp"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076761594654:android:4a6cfe46df3b50b6",
+        "android_client_info": {
+          "package_name": "com.pawsandstripesnativeapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1076761594654-utkunpdbm4e30voj0kvuinr1v3s70ibt.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1076761594654-971qa4ki0o7b65ik48q39jsp931iipol.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pawsandstripesnativeapp",
+            "certificate_hash": "8711c967f3adb0681a4764bf2ca9b62bcd4f04d5"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAefd5dQnCB78MY8vOkekeMxHLANLiA6Jo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
