@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import { Button } from 'react-native';
 import { TouchableOpacity, StyleSheet, View, Text,Image,Alert, Dimensions } from 'react-native';
 
+
 class Success extends Component {
     static navigationOptions = {header:null }
      // When the submit button is triggered call the next page, and set the state
@@ -11,6 +12,9 @@ class Success extends Component {
 
    render() {
        const {navigate} = this.props.navigation;
+       const {params} = this.props.navigation.state;
+
+
     return(
         <View style = {styles.container}>
             <Image source={require('./img/paws-screen4-bg-hi_res.png')}
@@ -20,7 +24,7 @@ class Success extends Component {
                 Thank You!
             </Text>
 
-            <TouchableOpacity onPress={ () => {navigate('Home')}} style = {styles.submit}>
+            <TouchableOpacity onPress={ () => {navigate('Home', {user:params.user})}} style = {styles.submit}>
                         <Text style = {styles.edit_text}>
                             submit more hours
                         </Text>
@@ -48,7 +52,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         resizeMode: 'contain'
-
     },
     submit: {
         alignItems: 'center',
