@@ -4,7 +4,6 @@ import { TouchableOpacity, Picker, StyleSheet, View, Text, Image, Dimensions, Al
 import { WheelPicker} from 'react-native-wheel-picker-android'
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
-
 import ValidationScreen from './Validation.js'
 
 
@@ -58,7 +57,15 @@ import ValidationScreen from './Validation.js'
 
                 {/*
                     * DATE PICKER
+                */}          
+                <DatePicker
+                    initdate={now.toISOString()}
+                    onDateSelected={ (date) => this.onDateSelected(date)}
+                    style = {styles.datePicker}
+                />
                 */}
+
+
                 <View>
                     <Text onPress={this._showDatepicker} style={styles.date_picker}>{("0" + dateInfo.getDate()).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {("0" + (dateInfo.getMonth() + 1)).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {dateInfo.getFullYear().toString().substr(-2)}</Text>
                     <View style={styles.center_align}><Text style={styles.gold_text}>Date</Text></View>

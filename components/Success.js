@@ -3,6 +3,7 @@ import { TouchableOpacity, StyleSheet, View, Text, Image, BackHandler } from 're
 import { NavigationActions } from 'react-navigation';
 
 
+
 class Success extends Component {
     static navigationOptions = {header:null }
      // When the submit button is triggered call the next page, and set the state
