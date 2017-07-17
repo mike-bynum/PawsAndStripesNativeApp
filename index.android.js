@@ -20,6 +20,7 @@ import Success from './components/Success.js';
 
 import { StackNavigator } from 'react-navigation';
 
+
 const PawsAndStripesNativeApp = StackNavigator({
   Home: {screen: Home},
   Validation: {screen: Validation},

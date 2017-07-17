@@ -34,7 +34,7 @@ import ValidationScreen from './Validation.js'
    //Used to let the user select the number of hours volunteered
 
    render() {
-    const {navigate} = this.props.navigation;
+    const {navigate, passProps} = this.props.navigation;
     return (
        <View  style = {styles.container}> 
             <Image source={require('./img/paws-screen2-bg.png')}
@@ -78,7 +78,7 @@ import ValidationScreen from './Validation.js'
             {/*
                 * SUBMIT BUTTON
             */}
-                <TouchableOpacity onPress ={ () => {navigate('Validation', {date: "", hours: this.hour_value})}} style = {styles.submit}>
+                <TouchableOpacity onPress ={ () => {navigate('Validation', ({date: "7/14/2017", hours: 6}))}} style = {styles.submit}>
                     <Text style = {styles.text}>
                         Submit 
                     </Text>
