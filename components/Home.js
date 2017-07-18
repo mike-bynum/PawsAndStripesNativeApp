@@ -49,7 +49,6 @@ import ValidationScreen from './Validation.js'
         if(params.hours) {
             index = params.hours-1; 
             this._setHour(index+1);
-            console.log("UserHour: " + userHour); 
         } else this._setHour(index+1);
     }
  
