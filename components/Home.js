@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import { Button } from 'react-native';
 import { TouchableOpacity, Picker, StyleSheet, View, Text, Image, Dimensions, Alert } from 'react-native';
-import { WheelPicker, DatePicker, TimePicker} from 'react-native-wheel-picker-android';
+import { WheelPicker } from 'react-native-wheel-picker-android';
 
 
 import ValidationScreen from './Validation.js';
