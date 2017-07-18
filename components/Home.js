@@ -118,7 +118,7 @@ export default Home
 const styles =  StyleSheet.create({
         
     container: { 
-        flex:1,
+        flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -220,15 +220,16 @@ const styles =  StyleSheet.create({
     submit: {
        justifyContent: 'flex-end',
        width: 200,
-    //    marginTop: 150,
-    //    marginBottom: 25,
        height: 75,
+       marginTop: 25,
        backgroundColor: 'white',
        borderRadius: 50,
     },
     submit_box:{
-        paddingTop: 30,
-        paddingBottom: 30
+        alignSelf: 'stretch',
+        height: 125,
+        backgroundColor: 'black',
+        alignItems: 'center'
     },
     text: { 
         width: 200,
@@ -239,5 +240,6 @@ const styles =  StyleSheet.create({
         paddingTop: 15,
         fontSize: 30,
         textAlign: 'center',
+        color: 'black'
     }
 })
