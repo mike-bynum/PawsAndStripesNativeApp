@@ -1,15 +1,17 @@
-import React, { Component} from 'react';
-import { Button } from 'react-native';
-import { TouchableOpacity, Picker, StyleSheet, View, Text, Image, Dimensions, Alert } from 'react-native';
-import { WheelPicker, DatePicker, TimePicker} from 'react-native-wheel-picker-android';
+import React, { Component} from 'react'
+import { Button } from 'react-native'
+import { TouchableOpacity, Picker, StyleSheet, View, Text, Image, Dimensions, Alert } from 'react-native'
+import { WheelPicker} from 'react-native-wheel-picker-android'
+import DateTimePicker from 'react-native-modal-datetime-picker';
 
-
-import ValidationScreen from './Validation.js';
+import ValidationScreen from './Validation.js'
 
 
  class Home extends Component{
     static navigationOptions = {header:null }
     
+    state={ isDatePickerVisible: false, chosenDate: new Date()};
+
    // When the Hour Picker wheel changes set the hour_value
    // variable to be returned in view2
     _setHour = (hour) => {
@@ -22,67 +24,83 @@ import ValidationScreen from './Validation.js';
        return this.hour_value;
    }
 
-   arr = ["1 Hour","2 Hours","3 Hours"
-            ,"4 Hours","5 Hours","6 Hours"
-            ,"7 Hours","8 Hours","9 Hours"
-            ,"10 Hours","11 Hours","12 Hours"];
+
+   _showDatepicker = () => this.setState({ isDatePickerVisible: true});
+   _hideDatepicker = () => this.setState({ isDatePickerVisible: false});
+
+   _handleDatePicked = (date) => {
+       this.setState({chosenDate: date});
+
+       this._hideDatepicker();
+   }
+
+   arr = [1,2,3,4,5,6,7,8,9,10,11,12];
             
     now = new Date();
-   
-
 
    //Used to let the user select the number of hours volunteered
 
    render() {
     const {navigate} = this.props.navigation;
+    const date = new Date();
+    const dateInfo = this.state.chosenDate;
     return (
-       <View  style = {styles.container}> 
+        <View  style = {styles.container}> 
             <Image source={require('./img/paws-screen2-bg-hi_res.png')}
                 style = {styles.bgImgContainer}>
-            {/*
-                * HEADER 
-            */}
-                <Text style = {styles.header}>
-                    Please enter your volunteer time below
-                </Text>
-
-            {/*
-                * DATE PICKER
-            
-            <DatePicker
-            initdate={now.toISOString()}
-            onDateSelected={ (date) => this.onDateSelected(date)}
-            style = {styles.datePicker}
-            />
-            */}
-        
-            
-            {/*
-                * TIME PICKER
-            */}
-            
-            <View style={styles.wp_view}>
-                <WheelPicker
-                    onItemSelected={(event) => {this._setHour(event["data"])}}
-                    isCurved
-                    visibleItemCount={2}
-                    itemSpace={1}
-                    itemTextSize={70}
-                    itemTextColor="#9c8158"
-                    data={this.arr}
-                    style = {styles.wheelpicker}
-                />     
-            </View>
-        
-
-            {/*
-                * SUBMIT BUTTON
-            */}
-                <TouchableOpacity onPress ={ () => {navigate('Validation', {date: "", hours: this.hour_value})}} style = {styles.submit}>
-                    <Text style = {styles.text}>
-                        Submit 
+                {/*
+                    * HEADER 
+                */}
+                    <Text style = {styles.header}>
+                        Please enter your volunteer time below
                     </Text>
-                </TouchableOpacity>
+
+                {/*
+                    * DATE PICKER
+                */}
+                <View>
+                    <Text onPress={this._showDatepicker} style={styles.date_picker}>{("0" + dateInfo.getDate()).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {("0" + (dateInfo.getMonth() + 1)).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {dateInfo.getFullYear().toString().substr(-2)}</Text>
+                    <View style={styles.center_align}><Text style={styles.gold_text}>Date</Text></View>
+                </View>
+                
+                <DateTimePicker
+                    isVisible={this.state.isDatePickerVisible}
+                    onConfirm={this._handleDatePicked}
+                    onCancel={this._hideDatepicker}
+                    date={this.state.chosenDate}
+                    maximumDate={new Date()}
+                />
+
+                {/*
+                    * TIME PICKER
+                */}
+                
+                <View style={styles.wp_view}>
+                    <Text style={styles.gold_text_hours}>Hours</Text>  
+                        <WheelPicker
+                            onItemSelected={(event) => {this._setHour(event["data"])}}
+                            isCurved
+                            isAtmospheric
+                            visibleItemCount={2}
+                            itemSpace={50}
+                            itemTextSize={170}
+                            itemTextColor="white"
+                            data={this.arr}
+                            style = {styles.wheelpicker}
+                        /> 
+                    
+                </View>
+        
+                {/*
+                    * SUBMIT BUTTON
+                */}
+                <View style={styles.submit_box}>
+                    <TouchableOpacity onPress ={ () => {navigate('Validation', ({date: "7/14/2017", hours: 6}))}} style = {styles.submit}>
+                        <Text style = {styles.text}>
+                            Submit 
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </Image>
         </View>
     );
@@ -93,13 +111,11 @@ export default Home
 const styles =  StyleSheet.create({
         
     container: { 
-        flex:1,
+        flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: 'black',
-        
-
     },
     bgImgContainer:{
         flex:1,
@@ -107,7 +123,6 @@ const styles =  StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         resizeMode: 'contain'
-
     },
     label:{
         color: "white",
@@ -115,16 +130,19 @@ const styles =  StyleSheet.create({
         // marginBottom:10,
         // marginTop:70,
     },
+    center_align:{
+        justifyContent:'center',
+        alignItems: 'center',
+    },
     wp_text:{
         
-
     },
     wp_view:{
         flexDirection: 'column',
         justifyContent:'center',
         alignItems: 'center',
-        width:150,
-        height:150,
+        width:175,
+        height:175,
         borderWidth:3,
         borderRadius: 300,
         borderColor: "white",
@@ -133,9 +151,30 @@ const styles =  StyleSheet.create({
         // marginBottom: 100,
         paddingTop:10,
         paddingBottom:10,
-       
-
-    
+        marginBottom: 20 
+    },
+    date_picker:{
+        fontSize: 60,
+        color: 'white'
+    },
+    gold_text: {
+        fontFamily: 'sans-serif-medium',
+        fontSize: 22,
+        color: '#9c8158',
+        justifyContent:'center',
+        top: -10
+    },
+    gold_text_hours: {
+        fontFamily: 'sans-serif-medium',
+        fontSize: 22,
+        color: '#9c8158',
+        top: 56,
+        left: 45
+    },
+    gold_text_large: {
+        fontFamily: 'sans-serif-thin',
+        fontSize: 72,
+        color: '#9c8158',
     },
     wheelpicker: {
         flexDirection: 'column',
@@ -143,6 +182,8 @@ const styles =  StyleSheet.create({
         alignItems: 'center',
         width:140, 
         height:120,
+        left: -30,
+        top: -20,
         // marginTop: 15,
         // marginBottom: 15,
         borderRadius: 500,
@@ -163,8 +204,8 @@ const styles =  StyleSheet.create({
         alignItems: 'flex-start',
          textAlign: 'center',
          color: 'white',
-         fontSize: 18
-         
+         fontSize: 18,
+         marginTop: 20      
      },
      picker: {
          backgroundColor: '#E5E5E5'
@@ -172,14 +213,17 @@ const styles =  StyleSheet.create({
     submit: {
        justifyContent: 'flex-end',
        width: 200,
-    //    marginTop: 150,
-    //    marginBottom: 25,
        height: 75,
+       marginTop: 25,
        backgroundColor: 'white',
        borderRadius: 50,
-    
     },
-
+    submit_box:{
+        alignSelf: 'stretch',
+        height: 125,
+        backgroundColor: 'black',
+        alignItems: 'center'
+    },
     text: { 
         width: 200,
         height: 75,
@@ -189,5 +233,6 @@ const styles =  StyleSheet.create({
         paddingTop: 15,
         fontSize: 30,
         textAlign: 'center',
+        color: 'black'
     }
 })

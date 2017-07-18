@@ -20,7 +20,6 @@ import Home from './components/Home.js';
 import Validation from './components/Validation.js';
 import Success from './components/Success.js';
 
-
 import { StackNavigator } from 'react-navigation';
 
 
@@ -30,6 +29,7 @@ const PawsAndStripesNativeApp = StackNavigator({
   Validation: {screen: Validation},
   Success: {screen: Success}
 },  {
+  transitionConfig: () => ({ screenInterpolator: () => null}),
   initialRouteName: 'Splash',
 });
 
