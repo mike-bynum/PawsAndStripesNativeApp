@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\"",
-    "start": "node_modules/nodemon/bin/nodemon.js -- node_modules/babel-cli/bin/babel-node.js server.js"
-
+    "start": "babel server.js"
   },
   "author": "Joe Chacon",
   "license": "ISC",

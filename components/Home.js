@@ -8,7 +8,9 @@ import ValidationScreen from './Validation.js'
 
 
  class Home extends Component{
-    static navigationOptions = {header:null }
+    static navigationOptions =({ navigation }) => ({
+        header:null,
+    });
     
    // When the Hour Picker wheel changes set the hour_value
    // variable to be returned in view2
@@ -27,6 +29,7 @@ import ValidationScreen from './Validation.js'
             ,"7 Hours","8 Hours","9 Hours"
             ,"10 Hours","11 Hours","12 Hours"];
             
+    arr_nums = [1,2,3,4,5,6,7,8,9,10,11,12];
     now = new Date();
    
 
@@ -34,20 +37,37 @@ import ValidationScreen from './Validation.js'
    //Used to let the user select the number of hours volunteered
 
    render() {
+    const {params} = this.props.navigation.state;
     const {navigate} = this.props.navigation;
+    index = this.arr_nums[0]-1;
+    
+    {/*
+     * Test if the user had previous values
+     * Entered and wanted to adjust them
+    */}
+    if(params) {
+        if(params.hours) {
+            index = params.hours-1; 
+            this._setHour(index+1);
+            console.log("UserHour: " + userHour); 
+        } else this._setHour(index+1);
+    }
+ 
     return (
        <View  style = {styles.container}> 
             <Image source={require('./img/paws-screen2-bg.png')}
                 style = {styles.container}>
             {/*
-                * HEADER 
+             * HEADER 
             */}
                 <Text style = {styles.header}>
+                    Welcome <Text style={styles.userInfo}> {params.user.name} </Text> 
                     Please enter your volunteer time below
                 </Text>
 
             {/*
                 * DATE PICKER
+        
             
             <DatePicker
             initdate={now.toISOString()}
@@ -69,7 +89,8 @@ import ValidationScreen from './Validation.js'
                     itemSpace={1}
                     itemTextSize={70}
                     itemTextColor="#9c8158"
-                    data={this.arr}
+                    selectedItemPosition={index}
+                    data={this.arr_nums}
                     style = {styles.wheelpicker}
                 />     
             </View>
@@ -78,7 +99,13 @@ import ValidationScreen from './Validation.js'
             {/*
                 * SUBMIT BUTTON
             */}
-                <TouchableOpacity onPress ={ () => {navigate('Validation', {date: "", hours: this.hour_value})}} style = {styles.submit}>
+                <TouchableOpacity onPress ={ () => {
+                    navigate('Validation',
+                     {
+                         user: params.user,
+                         date: this._getHour(), 
+                         hours: this.hour_value
+                    })}} style = {styles.submit}>
                     <Text style = {styles.text}>
                         Submit 
                     </Text>
@@ -144,6 +171,9 @@ const styles =  StyleSheet.create({
         borderWidth:2
       
     },
+    userInfo: {
+        color: 'blue'
+    },
     datePicker: {
         width: 50,
         height: 100,
@@ -154,8 +184,8 @@ const styles =  StyleSheet.create({
 
     },
      header: {
-        alignItems: 'flex-start',
-         textAlign: 'center',
+        alignItems: 'center',
+         textAlign: 'left',
          color: 'white',
          fontSize: 18
          

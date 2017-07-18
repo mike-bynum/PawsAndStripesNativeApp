@@ -1,19 +1,19 @@
-import express from 'express';
-import passport from 'passport';
-import GoogleStrategy from 'passport-google-oauth20';
+const express = require('express');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20');
 // Import Google OAuth apps configs
-import { google } from './config';
+const google = require ('./config');
 
 // Transform Google profile into user object
 const transformGoogleProfile = (profile) => ({
     name: profile.displayName,
-    avatar: profile.image.url,
+    avatar: profile.image.url
 });
 
 // Register Google Passport Strategy
 passport.use(new GoogleStrategy(google,
-async(accessToken, refreshToken, profile, done)
-=> done(null, transformGoogleProfile(profile._json))
+  async (accessToken, refreshToken, profile, done)
+    => done(null, transformGoogleProfile(profile._json))
 ));
 
 // Serialize user into the sessions
