@@ -9,46 +9,29 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View, 
+  TouchableOpacity,
+  Button
 } from 'react-native';
 
-export default class PawsAndStripesNativeApp extends Component {
+import Routes from './router/Router.js';
+import Splash from './components/Splash.js';
+import Home from './components/Home.js';
+import Validation from './components/Validation.js';
+import Success from './components/Success.js';
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-        Welcome to your Tim Tracking Portal
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
-    );
-  }
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+import { StackNavigator } from 'react-navigation';
+
+
+const PawsAndStripesNativeApp = StackNavigator({
+  Splash: {screen: Splash},
+  Home: {screen: Home},
+  Validation: {screen: Validation},
+  Success: {screen: Success}
+},  {
+  initialRouteName: 'Splash',
 });
+
 
 AppRegistry.registerComponent('PawsAndStripesNativeApp', () => PawsAndStripesNativeApp);
