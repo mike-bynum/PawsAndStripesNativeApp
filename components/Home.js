@@ -8,7 +8,9 @@ import ValidationScreen from './Validation.js'
 
 
  class Home extends Component{
-    static navigationOptions = {header:null }
+    static navigationOptions =({ navigation }) => ({
+        header:null,
+    });
     
     state={ isDatePickerVisible: false, chosenDate: new Date()};
 
@@ -41,9 +43,21 @@ import ValidationScreen from './Validation.js'
    //Used to let the user select the number of hours volunteered
 
    render() {
+    const {params} = this.props.navigation.state;
     const {navigate} = this.props.navigation;
-    const date = new Date();
-    const dateInfo = this.state.chosenDate;
+    index = this.arr[0]-1;
+    
+    {/*
+     * Test if the user had previous values
+     * Entered and wanted to adjust them
+    */}
+    if(params) {
+        if(params.hours) {
+            index = params.hours-1; 
+            this._setHour(index+1);
+        } else this._setHour(index+1);
+    }
+
     return (
         <View  style = {styles.container}> 
             <Image source={require('./img/paws-screen2-bg-hi_res.png')}
@@ -51,20 +65,13 @@ import ValidationScreen from './Validation.js'
                 {/*
                     * HEADER 
                 */}
-                    <Text style = {styles.header}>
-                        Please enter your volunteer time below
-                    </Text>
-
+                <Text style = {styles.header}>
+                    Welcome <Text style={styles.userInfo}> {params.user.name} </Text> 
+                    Please enter your volunteer time below
+                </Text>
                 {/*
                     * DATE PICKER
-                
-                <DatePicker
-                initdate={now.toISOString()}
-                onDateSelected={ (date) => this.onDateSelected(date)}
-                style = {styles.datePicker}
-                />
                 */}
-
                 <View>
                     <Text onPress={this._showDatepicker} style={styles.date_picker}>{("0" + dateInfo.getDate()).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {("0" + (dateInfo.getMonth() + 1)).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {dateInfo.getFullYear().toString().substr(-2)}</Text>
                     <View style={styles.center_align}><Text style={styles.gold_text}>Date</Text></View>
@@ -92,6 +99,7 @@ import ValidationScreen from './Validation.js'
                             itemSpace={50}
                             itemTextSize={170}
                             itemTextColor="white"
+                            selectedItemPosition={index}
                             data={this.arr}
                             style = {styles.wheelpicker}
                         /> 
@@ -102,7 +110,7 @@ import ValidationScreen from './Validation.js'
                     * SUBMIT BUTTON
                 */}
                 <View style={styles.submit_box}>
-                    <TouchableOpacity onPress ={ () => {navigate('Validation', ({date: "7/14/2017", hours: 6}))}} style = {styles.submit}>
+                    <TouchableOpacity onPress ={ () => {navigate('Validation',{user: params.user, date: this._getHour(), hours: this.hour_value})}} style = {styles.submit}>
                         <Text style = {styles.text}>
                             Submit 
                         </Text>
@@ -198,6 +206,9 @@ const styles =  StyleSheet.create({
         borderWidth:2
       
     },
+    userInfo: {
+        color: 'blue'
+    },
     datePicker: {
         width: 50,
         height: 100,
@@ -208,8 +219,8 @@ const styles =  StyleSheet.create({
 
     },
      header: {
-        alignItems: 'flex-start',
-         textAlign: 'center',
+        alignItems: 'center',
+         textAlign: 'left',
          color: 'white',
          fontSize: 18,
          marginTop: 20      

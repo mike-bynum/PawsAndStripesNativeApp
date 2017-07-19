@@ -16,6 +16,7 @@ import {
 
 import Routes from './router/Router.js';
 import Splash from './components/Splash.js';
+import Login from './components/Login.js';
 import Home from './components/Home.js';
 import Validation from './components/Validation.js';
 import Success from './components/Success.js';
@@ -25,12 +26,12 @@ import { StackNavigator } from 'react-navigation';
 
 const PawsAndStripesNativeApp = StackNavigator({
   Splash: {screen: Splash},
+  Login: {screen: Login},
   Home: {screen: Home},
   Validation: {screen: Validation},
   Success: {screen: Success}
 },  {
-
-  initialRouteName: 'Splash',
+  initialRouteName: 'Login',
 });
 
 

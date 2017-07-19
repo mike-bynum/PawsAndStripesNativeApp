@@ -4,7 +4,9 @@ import { TouchableOpacity, StyleSheet, View, Text,Image,Alert, Dimensions } from
 
 
 class Validation extends Component {
-    static navigationOptions = {header:null } 
+    static navigationOptions = {
+        header:null,
+    } 
     hour = "";
     date = ""; 
 
@@ -17,7 +19,10 @@ class Validation extends Component {
    }
 
    render() {
+       const {params} = this.props.navigation.state;
        const {navigate} = this.props.navigation;
+       hours = params.hours;
+       date = params.date;
         return (
             <View style={styles.container}>
                 <Text style={styles.text_small}>
@@ -25,7 +30,7 @@ class Validation extends Component {
                 </Text>
 
                 <Text style={styles.text_big}>
-                    Hours
+                   {hours}
                 </Text>
 
                 <Text style={styles.text_small}>
@@ -33,20 +38,20 @@ class Validation extends Component {
                 </Text>
 
                 <Text style={styles.text_big}>
-                    Date
+                    {date}
                 </Text>
 
                 <Text style={styles.text_small}>
                     is that correct?
                 </Text>
 
-                <TouchableOpacity onPress={ () => {navigate('Success')}} style = {styles.submit}>
+                <TouchableOpacity onPress={ () => {navigate('Success', {user: params.user, date: date, hours: hours})}} style = {styles.submit}>
                     <Text style = {styles.submitText}>
                         YES! 
                     </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={ () => {navigate('Home', {date: this.date, hour: this.hour})}} style = {styles.edit}>
+                <TouchableOpacity onPress={ () => {navigate('Home', {user: params.user, date: date, hours: hours})}} style = {styles.edit}>
                     <Text style = {styles.edit_text}>
                         no, I need to edit my time
                     </Text>

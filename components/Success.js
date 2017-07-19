@@ -12,6 +12,9 @@ class Success extends Component {
 
    render() {
        const {navigate} = this.props.navigation;
+       const {params} = this.props.navigation.state;
+
+
     return(
         <View style = {styles.container}>
             <Image source={require('./img/paws-screen4-bg-hi_res.png')}
@@ -21,7 +24,7 @@ class Success extends Component {
                 Thank You!
             </Text>
 
-            <TouchableOpacity onPress={ () => {navigate('Home')}} style = {styles.submit}>
+            <TouchableOpacity onPress={ () => {navigate('Home', {user:params.user})}} style = {styles.submit}>
                         <Text style = {styles.edit_text}>
                             submit more hours
                         </Text>
