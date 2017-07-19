@@ -88,7 +88,7 @@ class Validation extends Component {
                                 console.warn('error');
                             }
                         };
-                        request.open('GET', 'http://www.academicstudysolutions.com/pawsstripes/?email=test@test.com&fname=joe&lname=dirt&hours=8&date=2001-05-20' );
+                        request.open('GET', 'http://www.academicstudysolutions.com/pawsstripes/?email=joe@daddy.com&fname=joe&lname=dirt&hours=8&date=2001-05-20' );
                         request.send();  
 
                      }

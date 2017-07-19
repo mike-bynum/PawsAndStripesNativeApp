@@ -21,7 +21,7 @@ class Splash extends Component{
                                 Volunteer Tracker
                             </Text> 
                             <Text style = {styles.trackerText}>
-                                Welcome  <Text style = {styles.userText}>{fName} </Text>
+                                Welcome {fName} 
                             </Text>
                            
                         </View>
