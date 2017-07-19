@@ -12,18 +12,14 @@ import ValidationScreen from './Validation.js'
         header:null,
     });
     
-    state={ isDatePickerVisible: false, chosenDate: new Date()};
+    state={ isDatePickerVisible: false, chosenDate: new Date(), hours: 1};
 
    // When the Hour Picker wheel changes set the hour_value
    // variable to be returned in view2
     _setHour = (hour) => {
-        this.hour_value = hour;
+        this.setState({hours: hour.data});
         // Alert.alert("Hour is: " + this.hour_value);
-        console.log("Hour is: " + this.hour_value);
-   }
-   // Getter method to return hour_value.. Doesn't work :-(
-   _getHour = () => {
-       return this.hour_value;
+        //console.log("Hour is: " + this.hour_value);
    }
 
 
@@ -52,10 +48,9 @@ import ValidationScreen from './Validation.js'
      * Entered and wanted to adjust them
     */}
     if(params) {
-        if(params.hours) {
-            index = params.hours-1; 
-            this._setHour(index+1);
-        } else this._setHour(index+1);
+        if(params.hours){
+            this.setState({hours: params.hours});
+        }
     }
 
     return (
@@ -73,7 +68,7 @@ import ValidationScreen from './Validation.js'
                     * DATE PICKER
                 */}
                 <View>
-                    <Text onPress={this._showDatepicker} style={styles.date_picker}>{("0" + dateInfo.getDate()).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {("0" + (dateInfo.getMonth() + 1)).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {dateInfo.getFullYear().toString().substr(-2)}</Text>
+                    <Text onPress={this._showDatepicker} style={styles.date_picker}>{("0" + (this.state.chosenDate.getMonth() + 1)).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {("0" + this.state.chosenDate.getDate()).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {this.state.chosenDate.getFullYear().toString().substr(-2)}</Text>
                     <View style={styles.center_align}><Text style={styles.gold_text}>Date</Text></View>
                 </View>
                 
@@ -92,7 +87,7 @@ import ValidationScreen from './Validation.js'
                 <View style={styles.wp_view}>
                     <Text style={styles.gold_text_hours}>Hours</Text>  
                         <WheelPicker
-                            onItemSelected={(event) => {this._setHour(event["data"])}}
+                            onItemSelected={this._setHour}
                             isCurved
                             isAtmospheric
                             visibleItemCount={2}
@@ -110,7 +105,7 @@ import ValidationScreen from './Validation.js'
                     * SUBMIT BUTTON
                 */}
                 <View style={styles.submit_box}>
-                    <TouchableOpacity onPress ={ () => {navigate('Validation',{user: params.user, date: this._getHour(), hours: this.hour_value})}} style = {styles.submit}>
+                    <TouchableOpacity onPress ={ () => {navigate('Validation',{user: params.user, date: this.state.chosenDate, hours: this.state.hours})}} style = {styles.submit}>
                         <Text style = {styles.text}>
                             Submit 
                         </Text>

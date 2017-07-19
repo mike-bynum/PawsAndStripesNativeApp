@@ -23,6 +23,13 @@ class Validation extends Component {
        const {navigate} = this.props.navigation;
        hours = params.hours;
        date = params.date;
+
+        var hoursDisplay = "hours";
+
+       if(hours < 2){
+           hoursDisplay = "hour";
+       }
+
         return (
             <View style={styles.container}>
                 <Text style={styles.text_small}>
@@ -30,7 +37,7 @@ class Validation extends Component {
                 </Text>
 
                 <Text style={styles.text_big}>
-                   {hours}
+                   {params.hours} {hoursDisplay}
                 </Text>
 
                 <Text style={styles.text_small}>
@@ -38,7 +45,7 @@ class Validation extends Component {
                 </Text>
 
                 <Text style={styles.text_big}>
-                    {date}
+                    {date.toDateString()}
                 </Text>
 
                 <Text style={styles.text_small}>
