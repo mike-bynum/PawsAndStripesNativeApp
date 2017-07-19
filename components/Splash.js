@@ -7,15 +7,23 @@ class Splash extends Component{
 
     render(){
         const {navigate} =this.props.navigation;
+        const {params} = this.props.navigation.state;
+        var userName = params.user.name;
+        var fName = userName.split(" ")[0];
+        var lName = userName.split(" ")[1]; 
 
         return(
             <View style = {styles.container}>
-                <TouchableOpacity onPress={ () => {navigate('Home')}} style = {styles.submit}>
+                <TouchableOpacity onPress={ () => {navigate('Home', {user: params.user})}} style = {styles.submit}>
                     <Image source = {require('./img/paws-screen1-bg.png')} style = {styles.bgImgContainer}>
                         <View style = {styles.trackerView}>
                             <Text style = {styles.trackerText}>
                                 Volunteer Tracker
                             </Text> 
+                            <Text style = {styles.trackerText}>
+                                Welcome  <Text style = {styles.userText}>{fName} </Text>
+                            </Text>
+                           
                         </View>
                         <Text style = {styles.continueText}>
                                 Tap anywhere to continue.
@@ -60,6 +68,12 @@ const styles = StyleSheet.create({
         fontSize: 48,
         textAlign: 'center',
         color: 'white'
+    },
+    userText: {
+        fontFamily: 'StardosStencil-Regular',
+        fontSize: 40,
+        textAlign: 'center',
+        color: 'black'
     },
     trackerView: {
         marginTop: 40,

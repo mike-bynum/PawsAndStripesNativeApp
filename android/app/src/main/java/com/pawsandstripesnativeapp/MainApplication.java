@@ -28,10 +28,9 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
 
           new MainReactPackage(),
-            new RCTSplashScreenPackage(),
-            new WheelPickerPackage()
+            new WheelPickerPackage(),
             //new RCTSplashScreenPackage(),
-            new RNGoogleSigninPackage(),
+            new RNGoogleSigninPackage()
 
       );
     }

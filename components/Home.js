@@ -13,7 +13,7 @@ import ValidationScreen from './Validation.js'
     });
     
     state={ isDatePickerVisible: false, chosenDate: new Date()};
-
+    hour_value = 0;
    // When the Hour Picker wheel changes set the hour_value
    // variable to be returned in view2
     _setHour = (hour) => {
@@ -32,19 +32,30 @@ import ValidationScreen from './Validation.js'
 
    _handleDatePicked = (date) => {
        this.setState({chosenDate: date});
-
        this._hideDatepicker();
    }
 
-   arr = [1,2,3,4,5,6,7,8,9,10,11,12];
-            
-    now = new Date();
+   arr = [1,2,3,4,5,6,7,8,9,10,11,12];       
+   now = new Date();
 
    //Used to let the user select the number of hours volunteered
 
    render() {
     const {params} = this.props.navigation.state;
     const {navigate} = this.props.navigation;
+    const date = new Date();
+    const dateInfo = this.state.chosenDate;
+    var userName = params.user.name;
+    var fName = userName.split(" ")[0];
+    var lName = userName.split(" ")[1]; 
+    {/*
+        * params can return  {
+            params.user.name
+            params.user.email
+            params.hours
+            params.date
+        }
+    */}
     index = this.arr[0]-1;
     
     {/*
@@ -66,7 +77,7 @@ import ValidationScreen from './Validation.js'
                     * HEADER 
                 */}
                 <Text style = {styles.header}>
-                    Welcome <Text style={styles.userInfo}> {params.user.name} </Text> 
+                    Hi <Text style={styles.userInfo}> {fName} </Text> 
                     Please enter your volunteer time below
                 </Text>
                 {/*
@@ -110,7 +121,10 @@ import ValidationScreen from './Validation.js'
                     * SUBMIT BUTTON
                 */}
                 <View style={styles.submit_box}>
-                    <TouchableOpacity onPress ={ () => {navigate('Validation',{user: params.user, date: this._getHour(), hours: this.hour_value})}} style = {styles.submit}>
+                    <TouchableOpacity onPress ={ () => {
+                       navigate('Validation',{user: params.user, date: this.state.chosenDate, hours:this.hour_value}) 
+                    }}
+                        style = {styles.submit} >
                         <Text style = {styles.text}>
                             Submit 
                         </Text>
@@ -207,7 +221,7 @@ const styles =  StyleSheet.create({
       
     },
     userInfo: {
-        color: 'blue'
+        color: '#9c8158'
     },
     datePicker: {
         width: 50,
