@@ -26,11 +26,27 @@ class Validation extends Component {
        Alert.alert("You chose to edit your time"); 
    }
 
-   render() {
+   render() {       
        const {params} = this.props.navigation.state;
        const {navigate} = this.props.navigation;
-       hours = params.hours;
-       date = params.date.toDateString("yyyy-mm-dd");
+
+        var userName = params.user.name;
+        var fName = userName.split(" ")[0];
+        var lName = userName.split(" ")[1]; 
+        {/*
+            * params can return  {
+                params.user.name
+                params.user.email
+                params.hours
+                params.date
+            }
+        */}
+
+       hours = params.hours.toString();
+       var day = ("0" + params.date.getDay()).substr(-2);
+       var month = ("0" + params.date.getMonth()).substr(-2);
+       var year = params.date.getFullYear(); 
+       date = year + "-" + month + "-" + day;
 
         var hoursDisplay = "hours";
 
@@ -95,7 +111,9 @@ class Validation extends Component {
                                 console.warn('error');
                             }
                         };
-                        request.open('GET', 'http://www.academicstudysolutions.com/pawsstripes/?email=test@test.com&fname=joe&lname=dirt&hours=8&date=2001-05-20' );
+                    var query = 'http://www.academicstudysolutions.com/pawsstripes/?email=stuff@things.com&fname=' + fName + '&lname=' + lName + '&hours=' + hours + '&date=' + date;
+                    console.log(query);
+                    request.open('GET', query);
                         request.send();  
 
                      }

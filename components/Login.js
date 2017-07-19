@@ -84,7 +84,7 @@ class Login extends Component {
             });
 
             const user = await GoogleSignin.currentUserAsync();
-            console.log("USER: " + user.name);
+            //console.log("USER: " + user.name);
             this.setState({user});
         }
         catch(err) {
@@ -95,7 +95,7 @@ class Login extends Component {
      _signIn() {
         GoogleSignin.signIn()
         .then((user) => {
-        console.log(user);
+        //console.log(user);
         this.setState({user: user});
         })
         .catch((err) => {

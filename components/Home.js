@@ -56,8 +56,11 @@ import ValidationScreen from './Validation.js'
      * Test if the user had previous values
      * Entered and wanted to adjust them
     */}
+    var index = 0;
+
     if(params) {
         if(params.hours){
+            index = params.hours - 1;
             this.setState({hours: params.hours});
         }
     }
