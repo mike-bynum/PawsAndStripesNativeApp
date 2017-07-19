@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
-import { Button } from 'react-native';
-import { TouchableOpacity, StyleSheet, View, Text,Image,Alert, Dimensions } from 'react-native';
+import { TouchableOpacity, StyleSheet, View, Text, Image, BackHandler } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 
 
 class Success extends Component {
@@ -10,8 +10,41 @@ class Success extends Component {
        Alert.alert("The Selected Time is:" + this.hour_value);
    }
 
-   render() {
-       const {navigate} = this.props.navigation;
+   constructor(props){
+       super(props);
+       this.handleBackButton = this.handleBackButton.bind(this);
+   }
+   
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    componentWillUnmount(){
+         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+
+   handleBackButton(){
+        {this.props.navigation.dispatch(NavigationActions
+            .reset({
+                index: 0,
+                actions: [
+                    NavigationActions.navigate({routeName: 'Home'})
+                ]
+            })
+        )};
+        return true;
+    }
+
+    render() {
+        const resetAction = NavigationActions.reset({
+           index: 0,
+           actions: [
+               NavigationActions.navigate({routeName: 'Home'})
+           ]
+       })
+
+
     return(
         <View style = {styles.container}>
             <Image source={require('./img/paws-screen4-bg-hi_res.png')}
@@ -21,7 +54,7 @@ class Success extends Component {
                 Thank You!
             </Text>
 
-            <TouchableOpacity onPress={ () => {navigate('Home')}} style = {styles.submit}>
+            <TouchableOpacity onPress={ () => {this.props.navigation.dispatch(resetAction)}} style = {styles.submit}>
                         <Text style = {styles.edit_text}>
                             submit more hours
                         </Text>

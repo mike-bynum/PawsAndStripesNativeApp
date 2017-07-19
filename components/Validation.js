@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import { Button } from 'react-native';
 import { TouchableOpacity, StyleSheet, View, Text,Image,Alert, Dimensions } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 
 
 class Validation extends Component {
@@ -18,6 +19,14 @@ class Validation extends Component {
 
    render() {
        const {navigate} = this.props.navigation;
+       const resetAction = NavigationActions.reset({
+           index: 0,
+           actions: [
+               NavigationActions.navigate({routeName: 'Success'})
+           ]
+       })
+       const backAction = NavigationActions.back({
+       })
         return (
             <View style={styles.container}>
                 <Text style={styles.text_small}>
@@ -40,13 +49,13 @@ class Validation extends Component {
                     is that correct?
                 </Text>
 
-                <TouchableOpacity onPress={ () => {navigate('Success')}} style = {styles.submit}>
+                <TouchableOpacity onPress={ () => {this.props.navigation.dispatch(resetAction)}} style = {styles.submit}>
                     <Text style = {styles.submitText}>
                         YES! 
                     </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={ () => {navigate('Home', {date: this.date, hour: this.hour})}} style = {styles.edit}>
+                <TouchableOpacity onPress={ () => {this.props.navigation.dispatch(backAction)}} style = {styles.edit}>
                     <Text style = {styles.edit_text}>
                         no, I need to edit my time
                     </Text>
