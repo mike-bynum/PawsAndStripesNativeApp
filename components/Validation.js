@@ -4,6 +4,14 @@ import { TouchableOpacity, StyleSheet, View, Text,Image,Alert, Dimensions } from
 
 
 class Validation extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isPress: false
+        }
+            
+    }
     static navigationOptions = {
         header:null,
     } 
@@ -22,7 +30,7 @@ class Validation extends Component {
        const {params} = this.props.navigation.state;
        const {navigate} = this.props.navigation;
        hours = params.hours;
-       date = params.date;
+       date = params.date.toDateString("yyyy-mm-dd");
 
         var hoursDisplay = "hours";
 
@@ -31,32 +39,74 @@ class Validation extends Component {
        }
 
         return (
+            /*
+             * Main Container
+             */
             <View style={styles.container}>
                 <Text style={styles.text_small}>
                     you volunteered for
                 </Text>
 
+                {/*
+                    * Pass Hours from state
+                */}
                 <Text style={styles.text_big}>
-                   {params.hours} {hoursDisplay}
+                   {hours} {hoursDisplay}
                 </Text>
 
                 <Text style={styles.text_small}>
                     on
                 </Text>
 
+                 {/*
+                    * Pass Dates from state
+                */}
                 <Text style={styles.text_big}>
-                    {date.toDateString()}
+                    {date}
                 </Text>
 
                 <Text style={styles.text_small}>
                     is that correct?
                 </Text>
 
-                <TouchableOpacity onPress={ () => {navigate('Success', {user: params.user, date: date, hours: hours})}} style = {styles.submit}>
+                 {/*
+                    * Main Functionality:
+                    *If
+                */}
+
+                    <TouchableOpacity style = {styles.submit} disabled={this.state.isPress}  onPress={   (event) => {
+                
+                     // Initialize Request to server
+                     
+                     if(!this.state.isPress) {
+                         this.state.isPress = true; 
+                         console.log("Pressed Button"); 
+                         var request = new XMLHttpRequest();
+                        request.onreadystatechange =  (e) => {
+                            if (request.readyState != 4) {
+                                console.warn('Could not communicate with the server');
+                                return;
+                            }
+                            if (request.status === 200) {
+    
+                                console.warn('success', request.responseText);
+                                navigate('Success',{user: params.user, date: date, hours:hours}) 
+                            } else {
+                                console.warn('error');
+                            }
+                        };
+                        request.open('GET', 'http://www.academicstudysolutions.com/pawsstripes/?email=test@test.com&fname=joe&lname=dirt&hours=8&date=2001-05-20' );
+                        request.send();  
+
+                     }
+                    
+
+                    }}>
                     <Text style = {styles.submitText}>
                         YES! 
                     </Text>
                 </TouchableOpacity>
+             
 
                 <TouchableOpacity onPress={ () => {navigate('Home', {user: params.user, date: date, hours: hours})}} style = {styles.edit}>
                     <Text style = {styles.edit_text}>
@@ -66,6 +116,7 @@ class Validation extends Component {
 
             </View>
         );
+   
    }
 }
 

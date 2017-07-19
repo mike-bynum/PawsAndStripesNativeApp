@@ -45,32 +45,32 @@ class Login extends Component {
         }
 
         if(this.state.user) {
-            return(
-               
-              <View>
-                <TouchableOpacity onPress={ () => navigate('Home', {user: this.state.user})} >
-                    <Text style={styles.txt}> 
-                         Welcome Tap the screen to begin adding your 
-                         Hours.
-                    </Text>
-                       <Text style={styles.headers}> User:  
-                            <Text style={styles.userInfo}> {this.state.user.name} </Text>
-                       </Text> 
-                    <Text style={styles.headers}> Email:
-                        <Text style={styles.userInfo}> {this.state.user.email} </Text>
-                    </Text> 
+            return navigate('Splash', {user: this.state.user});
+                
+            //   <View>
+            //     <TouchableOpacity onPress={ () => navigate('Home', {user: this.state.user})} >
+            //         <Text style={styles.txt}> 
+            //              Welcome Tap the screen to begin adding your 
+            //              Hours.
+            //         </Text>
+            //            <Text style={styles.headers}> User:  
+            //                 <Text style={styles.userInfo}> {this.state.user.name} </Text>
+            //            </Text> 
+            //         <Text style={styles.headers}> Email:
+            //             <Text style={styles.userInfo}> {this.state.user.email} </Text>
+            //         </Text> 
                    
-                 <Text> TEST </Text>
+            //      <Text> TEST </Text>
                   
-                </TouchableOpacity>
+            //     </TouchableOpacity>
 
-                 <TouchableOpacity onPress={() => {this._signOut(); }}>
-                        <View style={styles.logout}>
-                            <Text style={styles.txt}>Log out</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-            );
+            //      <TouchableOpacity onPress={() => {this._signOut(); }}>
+            //             <View style={styles.logout}>
+            //                 <Text style={styles.txt}>Log out</Text>
+            //             </View>
+            //         </TouchableOpacity>
+            //     </View>
+           
         }
     }
 
