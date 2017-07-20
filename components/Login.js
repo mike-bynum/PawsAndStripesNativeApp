@@ -7,14 +7,23 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
+  Image,
   View,
   TouchableOpacity,
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 
 
+function setUser(Login, classUser){
+    Login.setState({user: classUser})
+    return
+}
 
 class Login extends Component {
     static navigationOptions = {header:null}
+    
+    
+
     constructor(props){
         super(props);
         this.state = {
@@ -28,27 +37,31 @@ class Login extends Component {
     }
 
     render() {
-        const { navigate } = this.props.navigation;
+        const navigateAction  = NavigationActions.navigate({
+            routeName: 'Home',
+            params: {user: this.state.user}
+        })
+
+
         if(!this.state.user){
             console.log("Login.js -- No User found, display Gmail Login Button");
             return(
                 <View style={styles.container}>
-                    <Text style={styles.txt}>
-                        Welcome to the Lucky Paws Time Tracker app.
-                        Please Sign in with Google to continue.
-                    </Text>
-                    <GoogleSigninButton style={styles.login} 
-                        color={GoogleSigninButton.Color.Dark} 
-                        size={GoogleSigninButton.Size.Standard.icon}
-                        onPress = { () => {this._signIn();}}
-                    />
+                     <Image source = {require('./img/paws-screen1-bg.png')} style = {styles.bgImgContainer}>
+                            <GoogleSigninButton style={styles.login} 
+                                color={GoogleSigninButton.Color.Dark} 
+                                size={GoogleSigninButton.Size.Standard.icon}
+                                onPress = { () => {this._signIn();}}
+                            />
+                    </Image>
                 </View>
+
             );
         }
 
         if(this.state.user) {
             console.log("Login.js -- User: " + this.state.user.name + "was found, display 'Splash' screen");
-            return navigate('Splash', {user: this.state.user}); 
+            return this.props.navigation.dispatch(navigateAction); 
         }
     }
 
@@ -61,9 +74,9 @@ class Login extends Component {
                 offlineAccess: false
             });
 
-            const user = await GoogleSignin.currentUserAsync();
+            const userSignin = await GoogleSignin.currentUserAsync();
             //console.log("USER: " + user.name);
-            this.setState({user});
+            this.setUser(this, userSignin);
         }
         catch(err) {
             console.log("Play services error", err.code, err.message); 
@@ -74,7 +87,7 @@ class Login extends Component {
         GoogleSignin.signIn()
         .then((user) => {
         //console.log(user);
-        this.setState({user: user});
+        this.setUser(this, user);
         })
         .catch((err) => {
         console.log('WRONG SIGNIN', err.stack);
@@ -129,6 +142,14 @@ const styles = StyleSheet.create({
     },
     userInfo: {
         color: 'gray'
-    }
+    },
+    bgImgContainer:{
+        flex:1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        resizeMode: 'contain'
+
+    },
 });
 
