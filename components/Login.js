@@ -7,6 +7,7 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
+  Image,
   View,
   TouchableOpacity,
 } from 'react-native';
@@ -32,23 +33,21 @@ class Login extends Component {
         if(!this.state.user){
             console.log("Login.js -- No User found, display Gmail Login Button");
             return(
-                <View style={styles.container}>
-                    <Text style={styles.txt}>
-                        Welcome to the Lucky Paws Time Tracker app.
-                        Please Sign in with Google to continue.
-                    </Text>
+            <View style = {styles.container}>
+                <Image source = {require('./img/paws-screen1-bg.png')} style = {styles.bgImgContainer}>
                     <GoogleSigninButton style={styles.login} 
                         color={GoogleSigninButton.Color.Dark} 
                         size={GoogleSigninButton.Size.Standard.icon}
                         onPress = { () => {this._signIn();}}
                     />
-                </View>
+                </Image>
+            </View>
             );
         }
 
         if(this.state.user) {
             console.log("Login.js -- User: " + this.state.user.name + "was found, display 'Splash' screen");
-            return navigate('Splash', {user: this.state.user}); 
+            return navigate('Home', {user: this.state.user}); 
         }
     }
 
@@ -105,6 +104,14 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       fontWeight: 'bold',
        marginBottom: 20
+    },
+    bgImgContainer:{
+        flex:1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        resizeMode: 'contain'
+
     },
     logout: {
         justifyContent: 'center',

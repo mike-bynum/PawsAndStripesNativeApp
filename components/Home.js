@@ -78,10 +78,10 @@ import ValidationScreen from './Validation.js'
                 {/*
                     * HEADER 
                 */}
-                <Text style = {styles.header}>
-                    Hi <Text style={styles.userInfo}> {fName} </Text> 
-                    Please enter your volunteer time below
-                </Text>
+                <View style = {styles.header}>
+                    <View><Text style={styles.header}>Hi <Text style={styles.userInfo}> {fName} </Text> </Text></View>
+                    <View><Text style = {styles.header}>Please enter your volunteer time below</Text></View>
+                </View>
                 {/*
                     * DATE PICKER
                 */}
@@ -96,6 +96,7 @@ import ValidationScreen from './Validation.js'
                     onCancel={this._hideDatepicker}
                     date={this.state.chosenDate}
                     maximumDate={new Date()}
+                    minimumDate={new Date().setDate(new Date().getDate() - 30)}
                 />
 
                 {/*
