@@ -41,7 +41,7 @@ import ValidationScreen from './Validation.js'
     const date = new Date();
     const dateInfo = this.state.chosenDate;
     
-    var userName;
+    var userName = "";
     var fName;
     var lName;
 
@@ -86,7 +86,7 @@ import ValidationScreen from './Validation.js'
                     * DATE PICKER
                 */}
                 <View>
-                    <Text onPress={this._showDatepicker} style={styles.date_picker}>{("0" + dateInfo.getDate()).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {("0" + (dateInfo.getMonth() + 1)).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {dateInfo.getFullYear().toString().substr(-2)}</Text>
+                    <Text onPress={this._showDatepicker} style={styles.date_picker}> {("0" + (dateInfo.getMonth() + 1)).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {("0" + dateInfo.getDate()).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {dateInfo.getFullYear().toString().substr(-2)}</Text>
                     <View style={styles.center_align}><Text style={styles.gold_text}>Date</Text></View>
                 </View>
                 
