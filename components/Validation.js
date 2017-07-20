@@ -33,6 +33,7 @@ class Validation extends Component {
         var userName = params.user.name;
         var fName = userName.split(" ")[0];
         var lName = userName.split(" ")[1]; 
+        var email = params.user.email;
         {/*
             * params can return  {
                 params.user.name
@@ -42,11 +43,12 @@ class Validation extends Component {
             }
         */}
 
-       hours = params.hours.toString();
-       var day = ("0" + params.date.getDay()).substr(-2);
-       var month = ("0" + params.date.getMonth()).substr(-2);
-       var year = params.date.getFullYear(); 
-       date = year + "-" + month + "-" + day;
+       hours = params.hours;
+       var date = params.date;
+       var day = ("0" + date.getDay()).substr(-2);
+       var month = ("0" + date.getMonth()).substr(-2);
+       var year = date.getFullYear(); 
+       dateString = year + "-" + month + "-" + day;
 
         var hoursDisplay = "hours";
 
@@ -78,7 +80,7 @@ class Validation extends Component {
                     * Pass Dates from state
                 */}
                 <Text style={styles.text_big}>
-                    {date}
+                    {date.toDateString()}
                 </Text>
 
                 <Text style={styles.text_small}>
@@ -96,22 +98,23 @@ class Validation extends Component {
                      
                      if(!this.state.isPress) {
                          this.state.isPress = true; 
-                         console.log("Pressed Button"); 
+                         console.log("Attempting to Submit Hours to backend"); 
                          var request = new XMLHttpRequest();
                         request.onreadystatechange =  (e) => {
                             if (request.readyState != 4) {
-                                console.warn('Could not communicate with the server');
+                                console.log('Could not communicate with the server');
+                                console.log('Request Status: ' + request.readyState); 
                                 return;
                             }
                             if (request.status === 200) {
-    
-                                console.warn('success', request.responseText);
+                                console.log('Communication to backend was successful'); 
+                                console.log('', request.responseText);
                                 navigate('Success',{user: params.user, date: date, hours:hours}) 
                             } else {
                                 console.warn('error');
                             }
                         };
-                    var query = 'http://www.academicstudysolutions.com/pawsstripes/?email=stuff@things.com&fname=' + fName + '&lname=' + lName + '&hours=' + hours + '&date=' + date;
+                    var query = 'http://www.academicstudysolutions.com/pawsstripes/?email='+email +'&fname=' + fName + '&lname=' + lName + '&hours=' + hours + '&date=' + dateString;
                     console.log(query);
                     request.open('GET', query);
                         request.send();  
@@ -126,7 +129,7 @@ class Validation extends Component {
                 </TouchableOpacity>
              
 
-                <TouchableOpacity onPress={ () => {navigate('Home', {user: params.user, date: date, hours: hours})}} style = {styles.edit}>
+                <TouchableOpacity onPress={ () => {navigate('Home')}} style = {styles.edit}>
                     <Text style = {styles.edit_text}>
                         no, I need to edit my time
                     </Text>

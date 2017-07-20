@@ -40,28 +40,34 @@ import ValidationScreen from './Validation.js'
     const {navigate} = this.props.navigation;
     const date = new Date();
     const dateInfo = this.state.chosenDate;
-    var userName = params.user.name;
-    var fName = userName.split(" ")[0];
-    var lName = userName.split(" ")[1]; 
+    
+    var userName;
+    var fName;
+    var lName;
+
+    console.log("Home.js -- Inside Home page"); 
     {/*
         * params can return  {
-            params.user.name
-            params.user.email
-            params.hours
-            params.date
+            params.user.name : string
+            params.user.email : string
+            params.hours : string
+            params.date : Date 
         }
     */}
-    
+     var index = 0;
     {/*
      * Test if the user had previous values
      * Entered and wanted to adjust them
     */}
-    var index = 0;
-
     if(params) {
         if(params.hours){
             index = params.hours - 1;
             this.setState({hours: params.hours});
+        }
+        if(params.user){
+            userName = params.user.name;
+            fName = userName.split(" ")[0];
+            lName = userName.split(" ")[1]; 
         }
     }
 
@@ -119,6 +125,8 @@ import ValidationScreen from './Validation.js'
                 <View style={styles.submit_box}>
                     <TouchableOpacity onPress ={ () => {
                        navigate('Validation',{user: params.user, date: this.state.chosenDate, hours:this.state.hours}) 
+                                               console.log("Sending: [" + params.user +","+this.state.chosenDate+","+this.state.hours+"] to Validation.js");
+
                     }}
                         style = {styles.submit} >
                         <Text style = {styles.text}>

@@ -12,18 +12,18 @@ class Splash extends Component{
         var fName = userName.split(" ")[0];
         var lName = userName.split(" ")[1]; 
 
+        console.log("Splash.js -- Inside splash screen"); 
+
         return(
             <View style = {styles.container}>
-                <TouchableOpacity onPress={ () => {navigate('Home', {user: params.user})}} style = {styles.submit}>
+                <TouchableOpacity onPress={ () => {
+                    console.log("Splash.js -- Navigating to 'Home' screen"); 
+                    navigate('Home', {user: params.user})}} style = {styles.submit}>
                     <Image source = {require('./img/paws-screen1-bg.png')} style = {styles.bgImgContainer}>
                         <View style = {styles.trackerView}>
                             <Text style = {styles.trackerText}>
                                 Volunteer Tracker
                             </Text> 
-                            <Text style = {styles.trackerText}>
-                                Welcome  <Text style = {styles.userText}>{fName} </Text>
-                            </Text>
-                           
                         </View>
                         <Text style = {styles.continueText}>
                                 Tap anywhere to continue.

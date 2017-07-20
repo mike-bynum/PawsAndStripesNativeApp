@@ -22,6 +22,7 @@ class Login extends Component {
         };
     }
 
+
     componentDidMount(){
         this._setupGoogleSignin();
     }
@@ -29,6 +30,7 @@ class Login extends Component {
     render() {
         const { navigate } = this.props.navigation;
         if(!this.state.user){
+            console.log("Login.js -- No User found, display Gmail Login Button");
             return(
                 <View style={styles.container}>
                     <Text style={styles.txt}>
@@ -45,32 +47,8 @@ class Login extends Component {
         }
 
         if(this.state.user) {
-            return navigate('Splash', {user: this.state.user});
-                
-            //   <View>
-            //     <TouchableOpacity onPress={ () => navigate('Home', {user: this.state.user})} >
-            //         <Text style={styles.txt}> 
-            //              Welcome Tap the screen to begin adding your 
-            //              Hours.
-            //         </Text>
-            //            <Text style={styles.headers}> User:  
-            //                 <Text style={styles.userInfo}> {this.state.user.name} </Text>
-            //            </Text> 
-            //         <Text style={styles.headers}> Email:
-            //             <Text style={styles.userInfo}> {this.state.user.email} </Text>
-            //         </Text> 
-                   
-            //      <Text> TEST </Text>
-                  
-            //     </TouchableOpacity>
-
-            //      <TouchableOpacity onPress={() => {this._signOut(); }}>
-            //             <View style={styles.logout}>
-            //                 <Text style={styles.txt}>Log out</Text>
-            //             </View>
-            //         </TouchableOpacity>
-            //     </View>
-           
+            console.log("Login.js -- User: " + this.state.user.name + "was found, display 'Splash' screen");
+            return navigate('Splash', {user: this.state.user}); 
         }
     }
 
