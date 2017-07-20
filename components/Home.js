@@ -11,20 +11,6 @@ import ValidationScreen from './Validation.js'
     static navigationOptions =({ navigation }) => ({
         header:null,
     });
-
-    constructor(props){
-        super(props);
-        this.state = {
-            user: null,
-            date: new Date(),
-            hour: 1
-        }
-    }
-
-    componentDidMount(){
-        this.setState.user = params.user
-        
-    }
     
     state={ isDatePickerVisible: false, chosenDate: new Date(), hours: 1};
 

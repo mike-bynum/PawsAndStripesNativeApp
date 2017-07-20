@@ -14,14 +14,9 @@ import {
 import { NavigationActions } from 'react-navigation';
 
 
-function setUser(Login, classUser){
-    Login.setState({user: classUser})
-    return
-}
 
 class Login extends Component {
     static navigationOptions = {header:null}
-    
     
 
     constructor(props){
@@ -36,7 +31,7 @@ class Login extends Component {
         this._setupGoogleSignin();
     }
 
-    render() {
+    /*render() {
         const navigateAction  = NavigationActions.navigate({
             routeName: 'Home',
             params: {user: this.state.user}
@@ -51,7 +46,7 @@ class Login extends Component {
                             <GoogleSigninButton style={styles.login} 
                                 color={GoogleSigninButton.Color.Dark} 
                                 size={GoogleSigninButton.Size.Standard.icon}
-                                onPress = { () => {this._signIn();}}
+                                onPress = { () => {this._signIn()}}
                             />
                     </Image>
                 </View>
@@ -61,7 +56,29 @@ class Login extends Component {
 
         if(this.state.user) {
             console.log("Login.js -- User: " + this.state.user.name + "was found, display 'Splash' screen");
-            return this.props.navigation.dispatch(navigateAction); 
+            return this.props.navigation.dispatch(navigateAction);
+        }
+    }*/
+        render() {
+
+        if(!this.state.user){
+            console.log("Login.js -- No User found, display Gmail Login Button");
+            return(
+                <View style={styles.container}>
+                    <Image source = {require('./img/paws-screen1-bg.png')} style = {styles.bgImgContainer}>
+                        <GoogleSigninButton style={styles.login} 
+                            color={GoogleSigninButton.Color.Dark} 
+                            size={GoogleSigninButton.Size.Standard.icon}
+                            onPress = { () => {this._signIn();}}
+                        />
+                    </Image>
+                </View>
+            );
+        }
+
+        if(this.state.user) {
+            console.log("Login.js -- User: " + this.state.user.name + "was found, display 'Splash' screen");
+            return this.props.navigation.dispatch(NavigationActions.navigate({routeName: 'Home', params: {user: this.state.user}})); 
         }
     }
 
@@ -74,9 +91,9 @@ class Login extends Component {
                 offlineAccess: false
             });
 
-            const userSignin = await GoogleSignin.currentUserAsync();
+            const user = await GoogleSignin.currentUserAsync();
             //console.log("USER: " + user.name);
-            this.setUser(this, userSignin);
+            this.setState({user});
         }
         catch(err) {
             console.log("Play services error", err.code, err.message); 
@@ -87,7 +104,7 @@ class Login extends Component {
         GoogleSignin.signIn()
         .then((user) => {
         //console.log(user);
-        this.setUser(this, user);
+        this.setState({user: user});
         })
         .catch((err) => {
         console.log('WRONG SIGNIN', err.stack);

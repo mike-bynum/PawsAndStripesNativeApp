@@ -60,7 +60,7 @@ class Validation extends Component {
        const resetAction = NavigationActions.reset({
            index: 0,
            actions: [
-               NavigationActions.navigate({routeName: 'Success'})
+               NavigationActions.navigate({routeName: 'Success', params: {user: params.user}})
            ]
        })
        const backAction = NavigationActions.back({

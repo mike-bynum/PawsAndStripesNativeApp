@@ -20,6 +20,7 @@ class Success extends Component {
    
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        this.state
     }
 
     componentWillUnmount(){
@@ -40,10 +41,12 @@ class Success extends Component {
     }
 
     render() {
+        const {params} = this.props.navigation.state;
+        const user = params.user
         const resetAction = NavigationActions.reset({
            index: 0,
            actions: [
-               NavigationActions.navigate({routeName: 'Home'})
+               NavigationActions.navigate({routeName: 'Home', params: {user: user}})
            ]
        })
 
