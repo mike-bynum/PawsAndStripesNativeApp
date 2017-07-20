@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import { Button } from 'react-native';
 import { TouchableOpacity, StyleSheet, View, Text,Image,Alert, Dimensions } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 
 
 class Validation extends Component {
@@ -56,6 +57,14 @@ class Validation extends Component {
            hoursDisplay = "hour";
        }
 
+       const resetAction = NavigationActions.reset({
+           index: 0,
+           actions: [
+               NavigationActions.navigate({routeName: 'Success'})
+           ]
+       })
+       const backAction = NavigationActions.back({
+       })
         return (
             /*
              * Main Container
@@ -109,7 +118,7 @@ class Validation extends Component {
                             if (request.status === 200) {
                                 console.log('Communication to backend was successful'); 
                                 console.log('', request.responseText);
-                                navigate('Success',{user: params.user, date: date, hours:hours}) 
+                                this.props.navigation.dispatch(resetAction) 
                             } else {
                                 console.warn('error');
                             }
@@ -123,13 +132,16 @@ class Validation extends Component {
                     
 
                     }}>
+
+                {/*<TouchableOpacity onPress={ () => {this.props.navigation.dispatch(resetAction)}} style = {styles.submit}>*/}
+
                     <Text style = {styles.submitText}>
                         YES! 
                     </Text>
                 </TouchableOpacity>
              
 
-                <TouchableOpacity onPress={ () => {navigate('Home')}} style = {styles.edit}>
+                <TouchableOpacity onPress={ () => {this.props.navigation.dispatch(backAction)}} style = {styles.edit}>
                     <Text style = {styles.edit_text}>
                         no, I need to edit my time
                     </Text>

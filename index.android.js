@@ -31,7 +31,10 @@ const PawsAndStripesNativeApp = StackNavigator({
   Validation: {screen: Validation},
   Success: {screen: Success}
 },  {
+
   initialRouteName: 'Login',
+  transitionConfig: () => ({ screenInterpolator: () => null}),
+
 });
 
 
