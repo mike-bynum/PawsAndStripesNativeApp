@@ -79,7 +79,7 @@ import ValidationScreen from './Validation.js'
                     * HEADER 
                 */}
                 <View style = {styles.header}>
-                    <View><Text style={styles.header_welcome}>Welcome {fName}</Text></View>
+                    <View><Text style={styles.header_welcome}>Welcome {fName},</Text></View>
                     <View><Text style = {styles.subheader_welcome}>Please enter your volunteer time below</Text></View>
                 </View>
                 {/*
@@ -247,10 +247,7 @@ const styles =  StyleSheet.create({
     },
      header: {
         alignItems: 'center',
-         textAlign: 'left',
-         color: 'white',
-         fontSize: 18,
-         marginTop: 20      
+        marginTop: 20      
      },
      picker: {
          backgroundColor: '#E5E5E5'
