@@ -3,6 +3,7 @@ package com.pawsandstripesnativeapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.github.wumke.RNExitApp.RNExitAppPackage;
 import com.wheelpicker.WheelPickerPackage;
 //import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
 import com.facebook.react.ReactNativeHost;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
 
           new MainReactPackage(),
+            new RNExitAppPackage(),
             new WheelPickerPackage(),
             //new RCTSplashScreenPackage(),
             new RNGoogleSigninPackage()

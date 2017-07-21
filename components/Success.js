@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
-import { TouchableOpacity, StyleSheet, View, Text, Image, BackHandler } from 'react-native';
+import { TouchableOpacity, StyleSheet, View, Text, Image, BackHandler, NativeModules } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import RNExitApp from 'react-native-exit-app';
 
 
 class Success extends Component {
@@ -55,19 +56,29 @@ class Success extends Component {
 
     return(
         <View style = {styles.container}>
-            <Image source={require('./img/paws-screen4-bg-hi_res.png')}
-            style = {styles.bgImgContainer}>
-
-            <Text style = {styles.thank_you}>
-                Thank You!
-            </Text>
-
-                <TouchableOpacity onPress={ () => {this.props.navigation.dispatch(resetAction)}} style = {styles.submit}>
-                    <Text style = {styles.edit_text}>
-                            submit more hours
-                    </Text>
-                </TouchableOpacity>
-
+            <Image source={require('./img/paws-screen4-bg-hi_res.png')} style = {styles.bgImgContainer}>
+                <Text style = {styles.thank_you}>
+                    Thank You!
+                </Text>
+                    {/*
+                        * Button Actions
+                    */}
+                    <View style={styles.action_bar}>
+                        <View style={styles.submit_view}>
+                            <TouchableOpacity onPress={ () => {this.props.navigation.dispatch(resetAction)}} style = {styles.submit}>
+                                <Text style = {styles.submit_text}>
+                                        submit more hours
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style = {styles.exit_view}>
+                            <TouchableOpacity onPress = {() =>  RNExitApp.exitApp()} stlye = {styles.exit}>
+                                <Text style = {styles.exit_text}>
+                                    exit
+                                </Text>
+                            </TouchableOpacity>
+                       </View>
+                    </View>
             </Image>
         </View>
     )
@@ -92,17 +103,46 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     submit: {
-        alignItems: 'center',
-        justifyContent:'center',
-        backgroundColor: 'black',
-         marginTop: 250,
-        width: 380,
-        height: 60,
+    
+        flexDirection: 'column',
+        alignItems: 'center', 
+        borderRightWidth: 2,
+        borderRightColor: '#9c8158',
     },
-    edit_text: {
+    submit_view: {
+        flex: 1,
+        alignItems: 'flex-end',
+        marginLeft: 160,
+    },
+    submit_text: {
+        paddingTop: 5,
+        paddingRight: 42, 
+        textAlign: 'center',
+        fontSize: 20,
+        color: '#9c8158',
+    },
+    exit: {
+        flexDirection: 'column', 
+        alignItems: 'center', 
+       
+    },
+    exit_view: {
+        flex: 1,
+        alignItems: 'flex-start',    
+    },
+     exit_text: {
+         paddingTop: 5,
+         paddingLeft: 30,
+         textAlign: 'center', 
         fontSize: 20,
         color: '#9c8158'
     },
+    action_bar: {
+        height: 50,
+        alignSelf: 'stretch', 
+        justifyContent: 'center',
+        flexDirection: 'row'
+    },    
     thank_you: {
         justifyContent: 'flex-start', 
         fontSize: 50,
