@@ -107,7 +107,7 @@ import ValidationScreen from './Validation.js'
                     onCancel={this._hideDatepicker}
                     date={this.state.chosenDate}
                     maximumDate={new Date()}
-                    minimumDate={new Date().setDate(new Date().getDate() - 30)}
+                    minimumDate={new Date().setDate(new Date().getDate() - 60)}
                 />
 
                 {/*
