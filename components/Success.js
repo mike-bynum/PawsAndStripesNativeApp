@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { TouchableOpacity, StyleSheet, View, Text, Image, BackHandler, NativeModules } from 'react-native';
+import { TouchableOpacity, StyleSheet, View, Text, Image, BackHandler, NativeModules, AppRegistry } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import RNExitApp from 'react-native-exit-app';
 
@@ -72,7 +72,9 @@ class Success extends Component {
                             </TouchableOpacity>
                         </View>
                         <View style = {styles.exit_view}>
-                            <TouchableOpacity onPress = {() =>  RNExitApp.exitApp()} stlye = {styles.exit}>
+                            <TouchableOpacity onPress = {() => 
+                                BackHandler.exitApp() 
+                            } stlye = {styles.exit}>
                                 <Text style = {styles.exit_text}>
                                     exit
                                 </Text>
