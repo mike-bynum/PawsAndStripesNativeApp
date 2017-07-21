@@ -17,15 +17,18 @@ import { NavigationActions } from 'react-navigation';
 
 class Login extends Component {
     static navigationOptions = {header:null}
-    
+
 
     constructor(props){
         super(props);
+        if(!this.props.navigation.state.isLoggedOut){
+            this.props.navigation.state.isLoggedOut = false;
+            
+        }
         this.state = {
             user: null
         };
     }
-
 
     componentDidMount(){
         this._setupGoogleSignin();
@@ -61,6 +64,15 @@ class Login extends Component {
     }*/
         render() {
 
+        const {params} = this.props.navigation.state;
+
+        if(params){
+            if(params.isLoggedOut){
+                this._signOut();
+                params.isLoggedOut = false;
+            }
+        }
+
         if(!this.state.user){
             console.log("Login.js -- No User found, display Gmail Login Button");
             return(
@@ -75,10 +87,10 @@ class Login extends Component {
                 </View>
             );
         }
-
+        
         if(this.state.user) {
-            console.log("Login.js -- User: " + this.state.user.name + "was found, display 'Splash' screen");
-            return this.props.navigation.dispatch(NavigationActions.navigate({routeName: 'Home', params: {user: this.state.user}})); 
+            var userToPass = this.state.user;
+            return this.props.navigation.dispatch(NavigationActions.navigate({routeName: 'Home', params: {user: userToPass}})); 
         }
     }
 
@@ -113,8 +125,8 @@ class Login extends Component {
   }
 
   _signOut() {
-    GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut()).then(() => {
-      this.setState({user: null});
+    GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut()).then(() =>{
+        this.setState({user: null});
     })
     .done();
   }

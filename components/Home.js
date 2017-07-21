@@ -3,6 +3,7 @@ import { Button } from 'react-native'
 import { TouchableOpacity, Picker, StyleSheet, View, Text, Image, Dimensions, Alert } from 'react-native'
 import { WheelPicker} from 'react-native-wheel-picker-android'
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import { NavigationActions } from 'react-navigation';
 
 import ValidationScreen from './Validation.js'
 
@@ -11,7 +12,7 @@ import ValidationScreen from './Validation.js'
     static navigationOptions =({ navigation }) => ({
         header:null,
     });
-    
+
     state={ isDatePickerVisible: false, chosenDate: new Date(), hours: 1};
 
    // When the Hour Picker wheel changes set the hour_value
@@ -20,7 +21,6 @@ import ValidationScreen from './Validation.js'
         this.setState({hours: hour.data});
         // Alert.alert("Hour is: " + this.hour_value);
    }
-
 
    _showDatepicker = () => this.setState({ isDatePickerVisible: true});
    _hideDatepicker = () => this.setState({ isDatePickerVisible: false});
@@ -44,8 +44,13 @@ import ValidationScreen from './Validation.js'
     var userName = "";
     var fName;
     var lName;
-
-    console.log("Home.js -- Inside Home page"); 
+    
+    const resetAction = NavigationActions.reset({
+           index: 0,
+           actions: [
+               NavigationActions.navigate({routeName: 'Login', params: {isLoggedOut: true}})
+           ]
+    })
     {/*
         * params can return  {
             params.user.name : string
@@ -75,6 +80,12 @@ import ValidationScreen from './Validation.js'
         <View  style = {styles.container}> 
             <Image source={require('./img/paws-screen2-bg-hi_res.png')}
                 style = {styles.bgImgContainer}>
+                {/*
+                    * LOG OUT
+                */}
+
+                    <Text onPress={() => {this.props.navigation.dispatch(resetAction)}} style={styles.gold_text_logout}>log out</Text>
+
                 {/*
                     * HEADER 
                 */}
@@ -203,8 +214,15 @@ const styles =  StyleSheet.create({
         fontFamily: 'sans-serif-medium',
         fontSize: 22,
         color: '#9c8158',
-        justifyContent:'center',
         top: -10
+    },
+    gold_text_logout:{
+        fontFamily: 'sans-serif-medium',
+        fontSize: 18,
+        color: '#9c8158',
+        marginLeft: 280,
+        marginTop: 10,
+        marginBottom: 0
     },
     gold_text_hours: {
         fontFamily: 'sans-serif-medium',
@@ -212,6 +230,8 @@ const styles =  StyleSheet.create({
         color: '#9c8158',
         top: 56,
         left: 45
+    },
+    logout_container:{
     },
     gold_text_large: {
         fontFamily: 'sans-serif-thin',
@@ -244,6 +264,11 @@ const styles =  StyleSheet.create({
         paddingLeft: 500,
         backgroundColor: 'white'
 
+    },
+    gold_small: {
+        fontSize: 14,
+        color: '#9c8158',
+        alignItems: 'flex-end',
     },
      header: {
         alignItems: 'center',
