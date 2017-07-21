@@ -23,6 +23,7 @@ import Success from './components/Success.js';
 
 import { StackNavigator } from 'react-navigation';
 
+console.disableYellowBox = true
 
 const PawsAndStripesNativeApp = StackNavigator({
   Splash: {screen: Splash},

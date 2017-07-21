@@ -66,11 +66,14 @@ class Login extends Component {
             return(
                 <View style={styles.container}>
                     <Image source = {require('./img/paws-screen1-bg.png')} style = {styles.bgImgContainer}>
-                        <GoogleSigninButton style={styles.login} 
-                            color={GoogleSigninButton.Color.Dark} 
-                            size={GoogleSigninButton.Size.Standard.icon}
-                            onPress = { () => {this._signIn();}}
-                        />
+                        <View style = {styles.loginView}>
+                            <TouchableOpacity onPress = { () => {this._signIn();}} style = {styles.buttonContainer}>
+                                <Image source = {require('./img/google_button_icon.png')} style = {styles.buttonImage} />
+                                <Text style = {styles.buttonText}>
+                                    Sign in with Google
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
                     </Image>
                 </View>
             );
@@ -121,52 +124,52 @@ class Login extends Component {
 }
 export default Login;
 const styles = StyleSheet.create({
-  container: {
-    flex:1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  txt: {
-      fontSize: 18, 
-      marginTop: 15,
-      justifyContent: 'center',
-      alignItems: 'center',
-      fontWeight: 'bold',
-       marginBottom: 20
-    },
-    logout: {
-        justifyContent: 'center',
+    container: {
+        flex:1,
         flexDirection: 'column',
-        marginTop: 100,
-        alignItems: 'center',
-        width: 300,
-        height: 50,
-        backgroundColor: 'gray',
-        borderRadius: 10
-    },
-    login : {
         justifyContent: 'center',
-        flexDirection: 'column',
-        marginTop: 100,
         alignItems: 'center',
-        width: 300, 
-        height: 50,
+        backgroundColor: '#F5FCFF',
     },
-    headers : {
-        color: 'blue'
+    txt: {
+        fontSize: 18, 
+        marginTop: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontWeight: 'bold',
+        marginBottom: 20
     },
-    userInfo: {
-        color: 'gray'
+    loginView : {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'stretch'
     },
     bgImgContainer:{
         flex:1,
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center',
         resizeMode: 'contain'
+    },
+    buttonImage:{
+        width: 48,
+        height: 48,
 
     },
+    buttonText:{
+        fontFamily: 'Roboto',
+        textAlign: 'center',
+        fontSize: 24,
+        color: 'white',
+        paddingTop: 8,
+        paddingLeft: 24
+
+    },
+    buttonContainer:{
+        paddingTop: 15,
+        flexDirection: 'row',
+        height: 75,
+        justifyContent: 'center',
+        backgroundColor: '#4285F4',
+    }
 });
 
