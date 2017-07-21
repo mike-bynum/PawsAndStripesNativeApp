@@ -1,7 +1,6 @@
 import React, { Component} from 'react';
 import { Button } from 'react-native';
 import { TouchableOpacity, StyleSheet, View, Text,Image,Alert, Dimensions } from 'react-native';
-import { NavigationActions } from 'react-navigation';
 
 
 class Validation extends Component {
@@ -27,29 +26,12 @@ class Validation extends Component {
        Alert.alert("You chose to edit your time"); 
    }
 
-   render() {       
+   render() {
        const {params} = this.props.navigation.state;
        const {navigate} = this.props.navigation;
-
-        var userName = params.user.name;
-        var fName = userName.split(" ")[0];
-        var lName = userName.split(" ")[1]; 
-        var email = params.user.email;
-        {/*
-            * params can return  {
-                params.user.name
-                params.user.email
-                params.hours
-                params.date
-            }
-        */}
-
        hours = params.hours;
-       var date = params.date;
-       var day = ("0" + date.getDay()).substr(-2);
-       var month = ("0" + date.getMonth()).substr(-2);
-       var year = date.getFullYear(); 
-       dateString = year + "-" + month + "-" + day;
+<<<<<<< HEAD
+       date = params.date;
 
         var hoursDisplay = "hours";
 
@@ -57,14 +39,9 @@ class Validation extends Component {
            hoursDisplay = "hour";
        }
 
-       const resetAction = NavigationActions.reset({
-           index: 0,
-           actions: [
-               NavigationActions.navigate({routeName: 'Success', params: {user: params.user}})
-           ]
-       })
-       const backAction = NavigationActions.back({
-       })
+=======
+       date = params.date.toDateString("yyyy-mm-dd");
+>>>>>>> 6b13b299f1b172f6d12e54617ff692634beb007c
         return (
             /*
              * Main Container
@@ -78,7 +55,11 @@ class Validation extends Component {
                     * Pass Hours from state
                 */}
                 <Text style={styles.text_big}>
-                   {hours} {hoursDisplay}
+<<<<<<< HEAD
+                   {params.hours} {hoursDisplay}
+=======
+                   {hours} Hours
+>>>>>>> 6b13b299f1b172f6d12e54617ff692634beb007c
                 </Text>
 
                 <Text style={styles.text_small}>
@@ -107,41 +88,35 @@ class Validation extends Component {
                      
                      if(!this.state.isPress) {
                          this.state.isPress = true; 
-                         console.log("Attempting to Submit Hours to backend"); 
+                         console.log("Pressed Button"); 
                          var request = new XMLHttpRequest();
                         request.onreadystatechange =  (e) => {
                             if (request.readyState != 4) {
-                                console.log('Could not communicate with the server');
-                                console.log('Request Status: ' + request.readyState); 
+                                console.warn('Could not communicate with the server');
                                 return;
                             }
                             if (request.status === 200) {
-                                console.log('Communication to backend was successful'); 
-                                console.log('', request.responseText);
-                                this.props.navigation.dispatch(resetAction) 
+    
+                                console.warn('success', request.responseText);
+                                navigate('Success',{user: params.user, date: date, hours:hours}) 
                             } else {
                                 console.warn('error');
                             }
                         };
-                    var query = 'http://www.academicstudysolutions.com/pawsstripes/?email='+email +'&fname=' + fName + '&lname=' + lName + '&hours=' + hours + '&date=' + dateString;
-                    console.log(query);
-                    request.open('GET', query);
+                        request.open('GET', 'http://www.academicstudysolutions.com/pawsstripes/?email=test@test.com&fname=joe&lname=dirt&hours=8&date=2001-05-20' );
                         request.send();  
 
                      }
                     
 
                     }}>
-
-                {/*<TouchableOpacity onPress={ () => {this.props.navigation.dispatch(resetAction)}} style = {styles.submit}>*/}
-
                     <Text style = {styles.submitText}>
                         YES! 
                     </Text>
                 </TouchableOpacity>
              
 
-                <TouchableOpacity onPress={ () => {this.props.navigation.dispatch(backAction)}} style = {styles.edit}>
+                <TouchableOpacity onPress={ () => {navigate('Home', {user: params.user, date: date, hours: hours})}} style = {styles.edit}>
                     <Text style = {styles.edit_text}>
                         no, I need to edit my time
                     </Text>
