@@ -33,29 +33,16 @@ class Validation extends Component {
        const resetAction = NavigationActions.reset({
            index: 0,
            actions: [
-               NavigationActions.navigate({routeName: 'Success'})
+               NavigationActions.navigate({routeName: 'Success' , params: {user: params.user}})
            ]
        })
        const backAction = NavigationActions.back({
        })
 
-
-       hours = params.hours;
-       date = params.date;
-
-
         var userName = params.user.name;
         var fName = userName.split(" ")[0];
         var lName = userName.split(" ")[1]; 
         var email = params.user.email;
-        {/*
-            * params can return  {
-                params.user.name
-                params.user.email
-                params.hours
-                params.date
-            }
-        */}
 
        hours = params.hours;
        var date = params.date;
@@ -86,7 +73,7 @@ class Validation extends Component {
                     * Pass Hours from state
                 */}
                 <Text style={styles.text_big}>
-                   {hours} Hours
+                   {hours} {hoursDisplay}
                 </Text>
 
                 <Text style={styles.text_small}>
@@ -97,7 +84,7 @@ class Validation extends Component {
                     * Pass Dates from state
                 */}
                 <Text style={styles.text_big}>
-                    {date.toDateString()}
+                    {dateString}
                 </Text>
 
                 <Text style={styles.text_small}>
@@ -127,7 +114,7 @@ class Validation extends Component {
                             if (request.status === 200) {
                                 console.log('Communication to backend was successful'); 
                                 console.log('', request.responseText);
-                                navigate('Success',{user: params.user, date: date, hours:hours}) 
+                                this.props.navigation.dispatch(resetAction) 
                             } else {
                                 console.warn('error');
                             }
@@ -147,7 +134,7 @@ class Validation extends Component {
                     </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={ () => {navigate('Home')}} style = {styles.edit}>
+                <TouchableOpacity onPress={ () => {this.props.navigation.dispatch(backAction)}} style = {styles.edit}>
                     <Text style = {styles.edit_text}>
                         no, I need to edit my time
                     </Text>

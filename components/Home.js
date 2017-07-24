@@ -80,7 +80,6 @@ import ValidationScreen from './Validation.js'
                 {/*
                     * HEADER 
                 */}
-                */}
                 <View style = {styles.header}>
                     <View><Text style={styles.header_welcome}>Welcome {fName},</Text></View>
                     <View><Text style = {styles.subheader_welcome}>Please enter your volunteer time below</Text></View>
@@ -100,22 +99,6 @@ import ValidationScreen from './Validation.js'
                     date={this.state.chosenDate}
                     maximumDate={new Date()}
                     minimumDate={new Date().setDate(new Date().getDate() - 30)}
-                />
-
-                {/*
-                    * DATE PICKER
-                */}
-                <View>
-                    <Text onPress={this._showDatepicker} style={styles.date_picker}>{("0" + (this.state.chosenDate.getMonth() + 1)).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {("0" + this.state.chosenDate.getDate()).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {this.state.chosenDate.getFullYear().toString().substr(-2)}</Text>
-                    <View style={styles.center_align}><Text style={styles.gold_text}>Date</Text></View>
-                </View>
-                
-                <DateTimePicker
-                    isVisible={this.state.isDatePickerVisible}
-                    onConfirm={this._handleDatePicked}
-                    onCancel={this._hideDatepicker}
-                    date={this.state.chosenDate}
-                    maximumDate={new Date()}
                 />
 
                 {/*
@@ -144,7 +127,7 @@ import ValidationScreen from './Validation.js'
                 */}
                 <View style={styles.submit_box}>
                     <TouchableOpacity onPress ={ () => {
-                       navigate('Validation',{user: params.user, date: this.state.chosenDate, hours:this.hour_value}) 
+                       navigate('Validation',{user: params.user, date: this.state.chosenDate, hours:this.state.hours})
                     }}
                         style = {styles.submit} >
                         <Text style = {styles.text}>
@@ -206,6 +189,14 @@ const styles =  StyleSheet.create({
     },
     date_picker:{
         fontSize: 60,
+        color: 'white'
+    },
+    header_welcome: {
+        fontSize: 24,
+        color: 'white'
+    },
+    subheader_welcome:{
+        fontSize: 18,
         color: 'white'
     },
     gold_text: {

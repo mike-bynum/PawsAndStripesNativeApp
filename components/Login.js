@@ -53,7 +53,6 @@ class Login extends Component {
         }
 
         if(this.state.user) {
-            console.log("Login.js -- User: " + this.state.user.name + "was found, display 'Splash' screen");
             return this.props.navigation.dispatch(NavigationActions.navigate({routeName: 'Home', params: {user: this.state.user}})); 
         }
     }
