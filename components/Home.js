@@ -19,7 +19,6 @@ import ValidationScreen from './Validation.js'
    // variable to be returned in view2
     _setHour = (hour) => {
         this.setState({hours: hour.data});
-        // Alert.alert("Hour is: " + this.hour_value);
    }
 
    _showDatepicker = () => this.setState({ isDatePickerVisible: true});
@@ -60,6 +59,7 @@ import ValidationScreen from './Validation.js'
         }
     */}
      var index = 0;
+
     {/*
      * Test if the user had previous values
      * Entered and wanted to adjust them
@@ -84,7 +84,7 @@ import ValidationScreen from './Validation.js'
                     * LOG OUT
                 */}
 
-                    <Text onPress={() => {this.props.navigation.dispatch(resetAction)}} style={styles.gold_text_logout}>log out</Text>
+                <Text onPress={() => {this.props.navigation.dispatch(resetAction)}} style={styles.gold_text_logout}>log out</Text>
 
                 {/*
                     * HEADER 
@@ -137,8 +137,7 @@ import ValidationScreen from './Validation.js'
                 <View style={styles.submit_box}>
                     <TouchableOpacity onPress ={ () => {
                        navigate('Validation',{user: params.user, date: this.state.chosenDate, hours:this.state.hours}) 
-                                               console.log("Sending: [" + params.user +","+this.state.chosenDate+","+this.state.hours+"] to Validation.js");
-
+                        //console.log("Sending: [" + params.user +","+this.state.chosenDate+","+this.state.hours+"] to Validation.js");
                     }}
                         style = {styles.submit} >
                         <Text style = {styles.text}>

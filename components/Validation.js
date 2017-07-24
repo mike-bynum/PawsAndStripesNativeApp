@@ -30,19 +30,19 @@ class Validation extends Component {
    render() {       
        const {params} = this.props.navigation.state;
        const {navigate} = this.props.navigation;
+       const resetAction = NavigationActions.reset({
+           index: 0,
+           actions: [
+               NavigationActions.navigate({routeName: 'Success' , params: {user: params.user}})
+           ]
+       })
+       const backAction = NavigationActions.back({
+       })
 
         var userName = params.user.name;
         var fName = userName.split(" ")[0];
         var lName = userName.split(" ")[1]; 
         var email = params.user.email;
-        {/*
-            * params can return  {
-                params.user.name
-                params.user.email
-                params.hours
-                params.date
-            }
-        */}
 
        hours = params.hours;
        var date = params.date;
@@ -57,14 +57,9 @@ class Validation extends Component {
            hoursDisplay = "hour";
        }
 
-       const resetAction = NavigationActions.reset({
-           index: 0,
-           actions: [
-               NavigationActions.navigate({routeName: 'Success', params: {user: params.user}})
-           ]
-       })
-       const backAction = NavigationActions.back({
-       })
+            /*
+             * Main Container
+             */
         return (
             /*
              * Main Container
@@ -89,7 +84,7 @@ class Validation extends Component {
                     * Pass Dates from state
                 */}
                 <Text style={styles.text_big}>
-                    {date.toDateString()}
+                    {dateString}
                 </Text>
 
                 <Text style={styles.text_small}>
@@ -132,9 +127,6 @@ class Validation extends Component {
                     
 
                     }}>
-
-                {/*<TouchableOpacity onPress={ () => {this.props.navigation.dispatch(resetAction)}} style = {styles.submit}>*/}
-
                     <Text style = {styles.submitText}>
                         YES! 
                     </Text>

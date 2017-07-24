@@ -23,6 +23,7 @@ import Success from './components/Success.js';
 
 import { StackNavigator } from 'react-navigation';
 
+console.disableYellowBox = true
 
 const PawsAndStripesNativeApp = StackNavigator({
   Splash: {screen: Splash},
@@ -31,10 +32,8 @@ const PawsAndStripesNativeApp = StackNavigator({
   Validation: {screen: Validation},
   Success: {screen: Success}
 },  {
-
-  initialRouteName: 'Login',
   transitionConfig: () => ({ screenInterpolator: () => null}),
-
+  initialRouteName: 'Login',
 });
 
 

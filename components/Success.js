@@ -27,15 +27,14 @@ class Success extends Component {
          BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
-
-   handleBackButton(){
+    handleBackButton(){
         const {params} = this.props.navigation.state;
         const user = params.user
         {this.props.navigation.dispatch(NavigationActions
             .reset({
                 index: 0,
                 actions: [
-                    NavigationActions.navigate({routeName: 'Home', params: {user: user}})
+                    NavigationActions.navigate({routeName: 'Home', params: {user: user, hours: 1}})
                 ]
             })
         )};
@@ -112,3 +111,4 @@ const styles = StyleSheet.create({
         marginTop: 100
     }
 })
+    
