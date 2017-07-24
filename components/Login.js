@@ -170,6 +170,6 @@ const styles = StyleSheet.create({
         height: 75,
         justifyContent: 'center',
         backgroundColor: '#4285F4',
-    }
+        }
 });
 
