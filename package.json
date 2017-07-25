@@ -15,15 +15,15 @@
     "passport-google-oauth20": "^1.0.0",
     "react": "16.0.0-alpha.12",
     "react-native": "0.46.1",
-    "react-native-modal-datetime-picker": "^4.8.0",
     "react-native-google-signin": "^0.8.1",
+    "react-native-loading-spinner-overlay": "^0.5.1",
+    "react-native-modal-datetime-picker": "^4.8.0",
     "react-native-smart-splash-screen": "^2.3.4",
     "react-native-splash-screen": "^2.1.0",
     "react-native-timepicker": "^1.0.3",
     "react-native-vector-icons": "^4.2.0",
     "react-native-wheel-picker-android": "^1.0.0",
     "react-navigation": "^1.0.0-beta.11"
-
   },
   "devDependencies": {
     "babel-jest": "20.0.3",
@@ -33,12 +33,10 @@
   },
   "jest": {
     "preset": "react-native"
-
   },
   "rnpm": {
     "assets": [
       "./assets/fonts/StardosStencil-regular.ttf"
     ]
-
   }
 }

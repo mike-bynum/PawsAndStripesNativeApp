@@ -7,7 +7,10 @@ import { NavigationActions } from 'react-navigation';
 
 import ValidationScreen from './Validation.js'
 
-
+/**
+ * The Home component is where the user selects the day and number of hours that
+ * they volunteered. This data is passed forward to the Validation component.
+ */
  class Home extends Component{
     static navigationOptions =({ navigation }) => ({
         header:null,
@@ -15,15 +18,25 @@ import ValidationScreen from './Validation.js'
 
     state={ isDatePickerVisible: false, chosenDate: new Date(), hours: 1};
 
-   // When the Hour Picker wheel changes set the hour_value
-   // variable to be returned in view2
+   /**
+    * Changes the state for the hours the user volunteered.
+    */
     _setHour = (hour) => {
         this.setState({hours: hour.data});
    }
 
+   /**
+    * Shows the date picker when the date bar is clicked on.
+    */
    _showDatepicker = () => this.setState({ isDatePickerVisible: true});
+   /**
+    * Hides the date picker once a date has been selected or the modal
+    * looses focus.
+    */
    _hideDatepicker = () => this.setState({ isDatePickerVisible: false});
-
+   /**
+    * Sets the state for the date that the user is inputing hours for.
+    */
    _handleDatePicked = (date) => {
        this.setState({chosenDate: date});
        this._hideDatepicker();
@@ -32,8 +45,10 @@ import ValidationScreen from './Validation.js'
    arr = [1,2,3,4,5,6,7,8,9,10,11,12];       
    now = new Date();
 
-   //Used to let the user select the number of hours volunteered
-
+   /**
+    * Creates the view used to selects the day and hours that the 
+    * user volunteered on.
+    */
    render() {
     const {params} = this.props.navigation.state;
     const {navigate} = this.props.navigation;
@@ -50,20 +65,14 @@ import ValidationScreen from './Validation.js'
                NavigationActions.navigate({routeName: 'Login', params: {isLoggedOut: true}})
            ]
     })
-    {/*
-        * params can return  {
-            params.user.name : string
-            params.user.email : string
-            params.hours : string
-            params.date : Date 
-        }
-    */}
+
      var index = 0;
 
-    {/*
-     * Test if the user had previous values
-     * Entered and wanted to adjust them
-    */}
+     /**
+      * Test if the page was navigated to from the validation page,
+      * if so set the values of the date and hour picker, otherwise 
+      * use defaults.
+      */
     if(params) {
         if(params.hours){
             index = params.hours - 1;
@@ -75,27 +84,22 @@ import ValidationScreen from './Validation.js'
             lName = userName.split(" ")[1]; 
         }
     }
-
+    /**
+     * The display for the logout button, welcome message, date picker, hours picker, and submit button.
+     */
     return (
         <View  style = {styles.container}> 
             <Image source={require('./img/paws-screen2-bg-hi_res.png')}
                 style = {styles.bgImgContainer}>
-                {/*
-                    * LOG OUT
-                */}
-
+                {/* LOG OUT */}
                 <Text onPress={() => {this.props.navigation.dispatch(resetAction)}} style={styles.gold_text_logout}>log out</Text>
 
-                {/*
-                    * HEADER 
-                */}
+                {/* HEADER */}
                 <View style = {styles.header}>
                     <View><Text style={styles.header_welcome}>Welcome {fName},</Text></View>
                     <View><Text style = {styles.subheader_welcome}>Please enter your volunteer time below</Text></View>
                 </View>
-                {/*
-                    * DATE PICKER
-                */}
+                {/* DATE PICKER */}
                 <View>
                     <Text onPress={this._showDatepicker} style={styles.date_picker}> {("0" + (dateInfo.getMonth() + 1)).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {("0" + dateInfo.getDate()).toString().substr(-2)} <Text style={styles.gold_text_large}>|</Text> {dateInfo.getFullYear().toString().substr(-2)}</Text>
                     <View style={styles.center_align}><Text style={styles.gold_text}>Date</Text></View>
@@ -110,10 +114,7 @@ import ValidationScreen from './Validation.js'
                     minimumDate={new Date().setDate(new Date().getDate() - 60)}
                 />
 
-                {/*
-                    * TIME PICKER
-                */}
-                
+                {/* TIME PICKER */}
                 <View style={styles.wp_view}>
                     <Text style={styles.gold_text_hours}>Hours</Text>  
                         <WheelPicker
@@ -131,14 +132,10 @@ import ValidationScreen from './Validation.js'
                     
                 </View>
         
-                {/*
-                    * SUBMIT BUTTON
-                */}
+                {/* SUBMIT BUTTON */}
                 <View style={styles.submit_box}>
                     <TouchableOpacity onPress ={ () => {
-                       navigate('Validation',{user: params.user, date: this.state.chosenDate, hours:this.state.hours}) 
-                        //console.log("Sending: [" + params.user +","+this.state.chosenDate+","+this.state.hours+"] to Validation.js");
-                    }}
+                        navigate('Validation',{user: params.user, date: this.state.chosenDate, hours:this.state.hours})}} 
                         style = {styles.submit} >
                         <Text style = {styles.text}>
                             Submit 
@@ -171,8 +168,6 @@ const styles =  StyleSheet.create({
     label:{
         color: "white",
         fontSize: 15,
-        // marginBottom:10,
-        // marginTop:70,
     },
     center_align:{
         justifyContent:'center',
@@ -190,9 +185,6 @@ const styles =  StyleSheet.create({
         borderWidth:3,
         borderRadius: 300,
         borderColor: "white",
-        
-        // marginTop: 100,
-        // marginBottom: 100,
         paddingTop:10,
         paddingBottom:10,
         marginBottom: 20 
@@ -230,8 +222,6 @@ const styles =  StyleSheet.create({
         top: 56,
         left: 45
     },
-    logout_container:{
-    },
     gold_text_large: {
         fontFamily: 'sans-serif-thin',
         fontSize: 72,
@@ -245,12 +235,9 @@ const styles =  StyleSheet.create({
         height:120,
         left: -30,
         top: -20,
-        // marginTop: 15,
-        // marginBottom: 15,
         borderRadius: 500,
         borderColor: "white",
-        borderWidth:2
-      
+        borderWidth:2  
     },
     userInfo: {
         color: '#9c8158'
@@ -258,11 +245,8 @@ const styles =  StyleSheet.create({
     datePicker: {
         width: 50,
         height: 100,
-        // marginBottom: 10,
-        // marginTop: 10,
         paddingLeft: 500,
         backgroundColor: 'white'
-
     },
     gold_small: {
         fontSize: 14,
