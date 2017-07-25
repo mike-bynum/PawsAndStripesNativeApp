@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import { TouchableOpacity, StyleSheet, View, Text, Image } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 /**
  * The Validation component displays the hours and date the user selected on the Home screen
@@ -12,7 +13,8 @@ class Validation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isPress: false
+            isPress: false,
+            visible: false
         }
             
     }
@@ -50,10 +52,11 @@ class Validation extends Component {
 
         hours = params.hours;
         var date = params.date;
-        var day = ("0" + date.getDay()).substr(-2);
-        var month = ("0" + date.getMonth()).substr(-2);
+        var day = ("0" + date.getDate()).substr(-2);
+        var month = ("0" + (date.getMonth()+ 1)).substr(-2);
         var year = date.getFullYear(); 
         dateString = year + "-" + month + "-" + day;
+        displayDate = month + "/" + day + "/" + year;
 
         var hoursDisplay = "hours";
 
@@ -66,6 +69,7 @@ class Validation extends Component {
              * Main Container
              */
             <View style={styles.container}>
+                <Spinner visible={this.state.visible} textContent={"Submitting Hours"} textStyle={{color: '#FFF'}} overlayColor = {'rgba(0,0,0,0.7)'} />
                 <Text style={styles.text_small}>
                     you volunteered for
                 </Text>
@@ -81,7 +85,7 @@ class Validation extends Component {
 
                  {/* Pass Dates from state */}
                 <Text style={styles.text_big}>
-                    {dateString}
+                    {displayDate}
                 </Text>
 
                 <Text style={styles.text_small}>
@@ -92,6 +96,7 @@ class Validation extends Component {
                     /**
                     * Initialize the request to the server
                     */
+                    this.setState({visible: true});
                     if(!this.state.isPress) {
                         this.state.isPress = true; 
                         console.log("Attempting to Submit Hours to backend"); 
@@ -99,15 +104,18 @@ class Validation extends Component {
                         request.onreadystatechange =  (e) => {
                             if (request.readyState != 4) {
                                 console.log('Could not communicate with the server');
-                                console.log('Request Status: ' + request.readyState); 
+                                console.log('Request Status: ' + request.readyState);
+                                //this.setState({visible: false}); 
                                 return;
                             }
                             if (request.status === 200) {
                                 console.log('Communication to backend was successful'); 
                                 console.log('', request.responseText);
+                                this.setState({visible: false});
                                 this.props.navigation.dispatch(resetAction) 
                             } else {
                                 console.warn('error');
+                                //this.setState({visible: false});
                             }
                         };
                         var query = 'http://www.academicstudysolutions.com/pawsstripes/?email='+email +'&fname=' + fName + '&lname=' + lName + '&hours=' + hours + '&date=' + dateString;

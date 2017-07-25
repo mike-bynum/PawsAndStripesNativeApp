@@ -4,6 +4,7 @@ import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
 import React, { Component } from 'react';
 import { StyleSheet, Text, Image, View, TouchableOpacity } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 
 /**
@@ -15,13 +16,15 @@ class Login extends Component {
     constructor(props){
         super(props);
         this.state = {
-            user: null
+            user: null,
+            visibleLogin: false,
+            visibleLogout: false
         };
     }
     /**
      * Upon mounting sets up the google authentication thread.
      */
-    componentDidMount(){
+    componentWillMount(){
         this._setupGoogleSignin();
     }
     /**
@@ -36,6 +39,7 @@ class Login extends Component {
          */
         if(params){
             if(params.isLoggedOut){
+                this.setState({visibleLogout: true})
                 this._signOut();
                 params.isLoggedOut = false;
             }
@@ -48,6 +52,8 @@ class Login extends Component {
             console.log("Login.js -- No User found, display Gmail Login Button");
             return(
                 <View style={styles.container}>
+                    <Spinner visible = {this.state.visibleLogin} textContent={'Signing into Google...'} textStyle={{color: '#FFF'}} overlayColor = {'rgba(0, 0, 0, 0.7)'} />
+                    <Spinner visible = {this.state.visibleLogout} textContent={'Signing out of Google...'} textStyle={{color: '#FFF'}} overlayColor = {'rgba(0, 0, 0, 0.7)'} />
                     <Image source = {require('./img/paws-screen1-bg.png')} style = {styles.bgImgContainer}>
                         <View style = {styles.loginView}>
                             <TouchableOpacity onPress = { () => {this._signIn();}} style = {styles.buttonContainer}>
@@ -93,9 +99,11 @@ class Login extends Component {
      * Sets the state for the user upon return of a sucessful Google sign in.
      */
     _signIn() {
+        this.setState({visibleLogin: true});
         GoogleSignin.signIn()
         .then((user) => {
-        this.setState({user: user});
+            this.setState({visibleLogin: false});
+            this.setState({user: user});
         })
         .catch((err) => {
         console.log('WRONG SIGNIN', err.stack);
@@ -107,6 +115,7 @@ class Login extends Component {
    */
   _signOut() {
     GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut()).then(() =>{
+        this.setState({visibleLogout: false});
         this.setState({user: null});
     })
     .done();
