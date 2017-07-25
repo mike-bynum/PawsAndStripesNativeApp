@@ -1,9 +1,12 @@
 import React, { Component} from 'react';
-import { Button } from 'react-native';
-import { TouchableOpacity, StyleSheet, View, Text,Image,Alert, Dimensions } from 'react-native';
+import { TouchableOpacity, StyleSheet, View, Text, Image } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 
-
+/**
+ * The Validation component displays the hours and date the user selected on the Home screen
+ * so that they can verify that the information is correct before they submit the data to the
+ * backend for insertion into the database.
+ */
 class Validation extends Component {
 
     constructor(props) {
@@ -19,23 +22,24 @@ class Validation extends Component {
     hour = "";
     date = ""; 
 
-     // When the submit button is triggered call the next page, and set the state
-   _submit = () => {
-       Alert.alert("Your date and time are correct");
-   }
-   _edit = () => {
-       Alert.alert("You chose to edit your time"); 
-   }
-
-   render() {       
-       const {params} = this.props.navigation.state;
-       const {navigate} = this.props.navigation;
-       const resetAction = NavigationActions.reset({
-           index: 0,
-           actions: [
-               NavigationActions.navigate({routeName: 'Success' , params: {user: params.user}})
-           ]
+    /**
+     * Displays the hours and date that the user entered with a button to submit and a button to edit.
+     */
+    render() {       
+        const {params} = this.props.navigation.state;
+        const {navigate} = this.props.navigation;
+        /**
+         * Navigation action for submitting the data to the backend and sending the user to the success screen.
+         */
+        const resetAction = NavigationActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({routeName: 'Success' , params: {user: params.user}})
+            ]
        })
+       /**
+        * Navigation action to send to user to the Home screen when they need to edit their input.
+        */
        const backAction = NavigationActions.back({
        })
 
@@ -44,22 +48,19 @@ class Validation extends Component {
         var lName = userName.split(" ")[1]; 
         var email = params.user.email;
 
-       hours = params.hours;
-       var date = params.date;
-       var day = ("0" + date.getDay()).substr(-2);
-       var month = ("0" + date.getMonth()).substr(-2);
-       var year = date.getFullYear(); 
-       dateString = year + "-" + month + "-" + day;
+        hours = params.hours;
+        var date = params.date;
+        var day = ("0" + date.getDay()).substr(-2);
+        var month = ("0" + date.getMonth()).substr(-2);
+        var year = date.getFullYear(); 
+        dateString = year + "-" + month + "-" + day;
 
         var hoursDisplay = "hours";
 
-       if(hours < 2){
-           hoursDisplay = "hour";
-       }
+        if(hours < 2){
+            hoursDisplay = "hour";
+        }
 
-            /*
-             * Main Container
-             */
         return (
             /*
              * Main Container
@@ -69,9 +70,7 @@ class Validation extends Component {
                     you volunteered for
                 </Text>
 
-                {/*
-                    * Pass Hours from state
-                */}
+                {/* Passed Hours from Home */}
                 <Text style={styles.text_big}>
                    {hours} {hoursDisplay}
                 </Text>
@@ -80,9 +79,7 @@ class Validation extends Component {
                     on
                 </Text>
 
-                 {/*
-                    * Pass Dates from state
-                */}
+                 {/* Pass Dates from state */}
                 <Text style={styles.text_big}>
                     {dateString}
                 </Text>
@@ -90,20 +87,15 @@ class Validation extends Component {
                 <Text style={styles.text_small}>
                     is that correct?
                 </Text>
-
-                 {/*
-                    * Main Functionality:
-                    *If
-                */}
-
-                    <TouchableOpacity style = {styles.submit} disabled={this.state.isPress}  onPress={   (event) => {
-                
-                     // Initialize Request to server
-                     
-                     if(!this.state.isPress) {
-                         this.state.isPress = true; 
-                         console.log("Attempting to Submit Hours to backend"); 
-                         var request = new XMLHttpRequest();
+                {/* Button to submit correct user information */}
+                <TouchableOpacity style = {styles.submit} disabled={this.state.isPress}  onPress={   (event) => {
+                    /**
+                    * Initialize the request to the server
+                    */
+                    if(!this.state.isPress) {
+                        this.state.isPress = true; 
+                        console.log("Attempting to Submit Hours to backend"); 
+                        var request = new XMLHttpRequest();
                         request.onreadystatechange =  (e) => {
                             if (request.readyState != 4) {
                                 console.log('Could not communicate with the server');
@@ -118,30 +110,24 @@ class Validation extends Component {
                                 console.warn('error');
                             }
                         };
-                    var query = 'http://www.academicstudysolutions.com/pawsstripes/?email='+email +'&fname=' + fName + '&lname=' + lName + '&hours=' + hours + '&date=' + dateString;
-                    console.log(query);
-                    request.open('GET', query);
+                        var query = 'http://www.academicstudysolutions.com/pawsstripes/?email='+email +'&fname=' + fName + '&lname=' + lName + '&hours=' + hours + '&date=' + dateString;
+                        console.log(query);
+                        request.open('GET', query);
                         request.send();  
-
-                     }
-                    
-
-                    }}>
+                    }                
+                }}>
                     <Text style = {styles.submitText}>
                         YES! 
                     </Text>
                 </TouchableOpacity>
-             
-
+                {/* Button to go back to the previous page and change the date or hours */}
                 <TouchableOpacity onPress={ () => {this.props.navigation.dispatch(backAction)}} style = {styles.edit}>
                     <Text style = {styles.edit_text}>
                         no, I need to edit my time
                     </Text>
                 </TouchableOpacity>
-
             </View>
-        );
-   
+        ); 
    }
 }
 

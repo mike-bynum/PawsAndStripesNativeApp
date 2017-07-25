@@ -1,48 +1,49 @@
 
 import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin';
-import {Alert} from 'react-native';
 
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  Image,
-  View,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, Text, Image, View, TouchableOpacity } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 
 
-
+/**
+ *  The Login component is where the user will sign into their google account
+ *  before continuing to enter their volunteer hours.
+ */
 class Login extends Component {
     static navigationOptions = {header:null}
     constructor(props){
         super(props);
-        if(!this.props.navigation.state.isLoggedOut){
-            this.props.navigation.state.isLoggedOut = false;
-            
-        }
         this.state = {
             user: null
         };
     }
-
+    /**
+     * Upon mounting sets up the google authentication thread.
+     */
     componentDidMount(){
         this._setupGoogleSignin();
     }
-
-        render() {
+    /**
+     * Creates the page and returns it based on weather the user is logged in or not. 
+     */
+    render() {
 
         const {params} = this.props.navigation.state;
-
+        /**
+         * If the page was navigated to from the home screen isLoggedOut will be true
+         * and the sign out function will be called.
+         */
         if(params){
             if(params.isLoggedOut){
                 this._signOut();
                 params.isLoggedOut = false;
             }
         }
-
+        /**
+         * User will only be set if a google account is signed in. If no user is found 
+         * displays the page that the user can log in to. 
+         */
         if(!this.state.user){
             console.log("Login.js -- No User found, display Gmail Login Button");
             return(
@@ -60,13 +61,18 @@ class Login extends Component {
                 </View>
             );
         }
-
+        /**
+         * Once a user has logged in, or if a user is logged in from a previous session redirects to the
+         * home page so hours can be input.
+         */
         if(this.state.user) {
             return this.props.navigation.dispatch(NavigationActions.navigate({routeName: 'Home', params: {user: this.state.user}})); 
         }
     }
 
-
+    /**
+     * Sets up the thread used for Goolge sign in.
+     */
     async _setupGoogleSignin() {
         try {
             await GoogleSignin.hasPlayServices({ autoResolve: true});
@@ -83,11 +89,12 @@ class Login extends Component {
             console.log("Play services error", err.code, err.message); 
         }
     }
-
-     _signIn() {
+    /**
+     * Sets the state for the user upon return of a sucessful Google sign in.
+     */
+    _signIn() {
         GoogleSignin.signIn()
         .then((user) => {
-        //console.log(user);
         this.setState({user: user});
         })
         .catch((err) => {
@@ -95,7 +102,9 @@ class Login extends Component {
         })
         .done();
   }
-
+  /**
+   * Signs the current user out of Goole.
+   */
   _signOut() {
     GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut()).then(() =>{
         this.setState({user: null});
@@ -103,7 +112,9 @@ class Login extends Component {
     .done();
   }
 }
+
 export default Login;
+
 const styles = StyleSheet.create({
 
     container: {
