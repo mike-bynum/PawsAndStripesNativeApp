@@ -1,7 +1,6 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
+ * Paws and Stripes react-native app. 
+ * @author Robert Spidle, Joe Chacon, John Cairns
  */
 import { AppRegistry } from 'react-native'
 import Login from './components/Login.js';
