@@ -88,8 +88,7 @@ class Login extends Component {
             });
 
             const user = await GoogleSignin.currentUserAsync();
-            //console.log("USER: " + user.name);
-            this.setState({user});
+            this.setState({user: user});
         }
         catch(err) {
             console.log("Play services error", err.code, err.message); 
@@ -113,13 +112,14 @@ class Login extends Component {
   /**
    * Signs the current user out of Goole.
    */
-  _signOut() {
-    GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut()).then(() =>{
+  _signOut() { 
+    // GoogleSignin.revokeAccess().then(() => 
+    GoogleSignin.signOut().then(() =>{
         this.setState({visibleLogout: false});
         this.setState({user: null});
-    })
+    }).then(GoogleSignin.revokeAccess())
     .done();
-  }
+    }
 }
 
 export default Login;
