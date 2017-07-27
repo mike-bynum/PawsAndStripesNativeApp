@@ -1,6 +1,6 @@
 import React, { Component} from 'react'
 import { Button } from 'react-native'
-import { TouchableOpacity, Picker, StyleSheet, View, Text, Image, Dimensions, Alert } from 'react-native'
+import { TouchableOpacity, Picker, StyleSheet, View, Text, Image, Dimensions, Alert, BackHandler } from 'react-native'
 import { WheelPicker} from 'react-native-wheel-picker-android'
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { NavigationActions } from 'react-navigation';
@@ -12,6 +12,37 @@ import ValidationScreen from './Validation.js'
  * they volunteered. This data is passed forward to the Validation component.
  */
  class Home extends Component{
+    constructor(props){
+        super(props);
+        this.handleBackButton = this.handleBackButton.bind(this);
+    }
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+    /**
+     * Remove the listener when the page is destroyed so normal functionality is maintained.
+     */
+    componentWillUnmount(){
+         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
+    /**
+     * The function that is called when the hardware back button is pressed. Navigates the user back
+     * to the home page.
+     */
+    handleBackButton(){
+        const {params} = this.props.navigation.state;
+        const user = params.user
+        {this.props.navigation.dispatch(NavigationActions
+            .reset({
+                index: 0,
+                actions: [
+                    NavigationActions.navigate({routeName: 'Login', params: {isLoggedOut: true}})
+                ]
+            })
+        )};
+        return true;
+    }
+
     static navigationOptions =({ navigation }) => ({
         header:null,
     });
