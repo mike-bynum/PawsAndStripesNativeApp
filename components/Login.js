@@ -112,8 +112,7 @@ class Login extends Component {
   /**
    * Signs the current user out of Goole.
    */
-  _signOut() { 
-    // GoogleSignin.revokeAccess().then(() => 
+  _signOut() {  
     GoogleSignin.signOut().then(() =>{
         this.setState({visibleLogout: false});
         this.setState({user: null});
