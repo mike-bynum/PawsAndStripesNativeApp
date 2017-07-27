@@ -105,7 +105,8 @@ class Login extends Component {
             this.setState({user: user});
         })
         .catch((err) => {
-        console.log('WRONG SIGNIN', err.stack);
+            console.log('WRONG SIGNIN', err.stack);
+            this.setState({visibleLogin: false});
         })
         .done();
   }
