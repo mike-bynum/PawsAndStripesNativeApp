@@ -166,7 +166,10 @@ import ValidationScreen from './Validation.js'
                 {/* SUBMIT BUTTON */}
                 <View style={styles.submit_box}>
                     <TouchableOpacity onPress ={ () => {
-                        navigate('Validation',{user: params.user, date: this.state.chosenDate, hours:this.state.hours})}} 
+                        this.props.navigation.dispatch(NavigationActions.navigate({routeName: 'Validation', 
+                                params: {user: params.user, date: this.state.chosenDate, hours:this.state.hours}}))}
+                                }
+                        //navigate('Validation',{user: params.user, date: this.state.chosenDate, hours:this.state.hours})}} 
                         style = {styles.submit} >
                         <Text style = {styles.text}>
                             Submit 

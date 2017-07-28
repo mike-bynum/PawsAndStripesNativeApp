@@ -37,7 +37,7 @@ class Success extends Component {
             .reset({
                 index: 0,
                 actions: [
-                    NavigationActions.navigate({routeName: 'Home', params: {user: user, hours: 1}})
+                    NavigationActions.navigate({routeName: 'Home', params: {user: user}})
                 ]
             })
         )};

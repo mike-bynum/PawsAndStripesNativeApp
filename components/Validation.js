@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { TouchableOpacity, StyleSheet, View, Text, Image } from 'react-native';
+import { TouchableOpacity, StyleSheet, View, Text, Image, BackHandler } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -16,8 +16,29 @@ class Validation extends Component {
             isPress: false,
             visible: false
         }
-            
+        this.handleBackButton = this.handleBackButton.bind(this); 
     }
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+    /**
+     * Remove the listener when the page is destroyed so normal functionality is maintained.
+     */
+    componentWillUnmount(){
+         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
+    /**
+     * The function that is called when the hardware back button is pressed. Navigates the user back
+     * to the home page.
+     */
+    handleBackButton(){
+        const {params} = this.props.navigation.state;
+        const user = params.user
+        {this.props.navigation.dispatch(NavigationActions.back({}))};
+        return true;
+    }
+
     static navigationOptions = {
         header:null,
     } 
