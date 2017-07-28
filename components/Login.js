@@ -71,8 +71,10 @@ class Login extends Component {
          * Once a user has logged in, or if a user is logged in from a previous session redirects to the
          * home page so hours can be input.
          */
-        if(this.state.user) {
-            return this.props.navigation.dispatch(NavigationActions.navigate({routeName: 'Home', params: {user: this.state.user}})); 
+        else if(this.state.user) {
+            return (
+               <View>{this.props.navigation.dispatch(NavigationActions.navigate({routeName: 'Home', params: {user: this.state.user}}))}</View>
+            ); 
         }
     }
 
@@ -87,8 +89,8 @@ class Login extends Component {
                 offlineAccess: false
             });
 
-            const user = await GoogleSignin.currentUserAsync();
-            this.setState({user: user});
+            // const user = await GoogleSignin.currentUserAsync();
+            // this.setState({user: user});
         }
         catch(err) {
             console.log("Play services error", err.code, err.message); 
