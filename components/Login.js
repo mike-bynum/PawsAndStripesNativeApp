@@ -85,7 +85,7 @@ class Login extends Component {
         try {
             await GoogleSignin.hasPlayServices({ autoResolve: true});
             await GoogleSignin.configure({
-                webClientId: '197907029127-9ok2lp3tglmivrfrlvticnbgpthhns01.apps.googleusercontent.com',
+                webClientId: '857691639654-aot23kgou1ug73llupjeeqj7677hel1a.apps.googleusercontent.com',
                 offlineAccess: false
             });
 
