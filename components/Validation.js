@@ -34,8 +34,18 @@ class Validation extends Component {
      */
     handleBackButton(){
         const {params} = this.props.navigation.state;
-        const user = params.user
-        {this.props.navigation.dispatch(NavigationActions.back({}))};
+        //const user = params.user
+        {this.props.navigation.dispatch(NavigationActions
+            .reset({
+                index: 0,
+                actions: [
+                    NavigationActions.navigate({
+                        routeName: 'Home', 
+                        params:{user: params.user}})
+                ]
+            })
+            )
+        };
         return true;
     }
 
