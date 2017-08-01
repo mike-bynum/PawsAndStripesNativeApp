@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "1076761594654",
-    "project_id": "pawsandstripesnativeapp"
+    "project_number": "197907029127",
+    "project_id": "paws-and-stripes-175016"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1076761594654:android:4a6cfe46df3b50b6",
+        "mobilesdk_app_id": "1:197907029127:android:4a6cfe46df3b50b6",
         "android_client_info": {
           "package_name": "com.pawsandstripesnativeapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1076761594654-utkunpdbm4e30voj0kvuinr1v3s70ibt.apps.googleusercontent.com",
+          "client_id": "197907029127-9ok2lp3tglmivrfrlvticnbgpthhns01.apps.googleusercontent.com",
           "client_type": 3
         },
         {
-          "client_id": "1076761594654-971qa4ki0o7b65ik48q39jsp931iipol.apps.googleusercontent.com",
+          "client_id": "197907029127-apga5b0htlmp10dqp107rrotnf9lqd82.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.pawsandstripesnativeapp",
-            "certificate_hash": "8711c967f3adb0681a4764bf2ca9b62bcd4f04d5"
+            "certificate_hash": "3e1f15de09df53633c59f15acd78862657cad2fa"
+          }
+        },
+        {
+          "client_id": "197907029127-jf5jtb4prinmfbue7clf6a9nn0c64qlb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pawsandstripesnativeapp",
+            "certificate_hash": "471071725f5721617c4225cf4487605eca8d3c5f"
           }
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAefd5dQnCB78MY8vOkekeMxHLANLiA6Jo"
+          "current_key": "AIzaSyBLbrxgCXqh_U8OE8rAr-9Qn15poltQorM"
         }
       ],
       "services": {
