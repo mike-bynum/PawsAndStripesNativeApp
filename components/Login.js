@@ -25,7 +25,7 @@ class Login extends Component {
      * Upon mounting sets up the google authentication thread.
      */
     componentWillMount(){
-        this._setupGoogleSignin();
+        this._setupGoogleSignin().done();
     }
     /**
      * Creates the page and returns it based on weather the user is logged in or not. 
@@ -53,7 +53,7 @@ class Login extends Component {
             return(
                 <View style={styles.container}>
                     <Spinner visible = {this.state.visibleLogin} textContent={'Signing into Google...'} textStyle={{color: '#FFF'}} overlayColor = {'rgba(0, 0, 0, 0.7)'} />
-                    <Spinner visible = {this.state.visibleLogout} textContent={'Signing out of Google...'} textStyle={{color: '#FFF'}} overlayColor = {'rgba(0, 0, 0, 0.7)'} />
+                    
                     <Image source = {require('./img/paws-screen1-bg.png')} style = {styles.bgImgContainer}>
                         <View style = {styles.loginView}>
                             <TouchableOpacity onPress = { () => {this._signIn();}} style = {styles.buttonContainer}>
@@ -87,14 +87,15 @@ class Login extends Component {
             await GoogleSignin.configure({
                 webClientId: '197907029127-9ok2lp3tglmivrfrlvticnbgpthhns01.apps.googleusercontent.com',
                 offlineAccess: false
-            });
+            }).done();
 
-            // const user = await GoogleSignin.currentUserAsync();
-            // this.setState({user: user});
+            const user = await GoogleSignin.currentUserAsync().done();
+            //this.setState({user});
         }
         catch(err) {
             console.log("Play services error", err.code, err.message); 
         }
+        return;
     }
     /**
      * Sets the state for the user upon return of a sucessful Google sign in.
@@ -119,8 +120,7 @@ class Login extends Component {
     GoogleSignin.signOut().then(() =>{
         this.setState({visibleLogout: false});
         this.setState({user: null});
-    }).then(GoogleSignin.revokeAccess())
-    .done();
+        }).done();
     }
 }
 
