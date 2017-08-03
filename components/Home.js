@@ -172,7 +172,7 @@ import ValidationScreen from './Validation.js'
                         //navigate('Validation',{user: params.user, date: this.state.chosenDate, hours:this.state.hours})}} 
                         style = {styles.submit} >
                         <Text style = {styles.text}>
-                            Submit 
+                            SUBMIT
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -245,8 +245,8 @@ const styles =  StyleSheet.create({
         fontFamily: 'sans-serif-medium',
         fontSize: 18,
         color: '#9c8158',
-        marginLeft: 280,
-        marginTop: 10,
+        marginLeft: 305,
+        marginTop: 15,
         marginBottom: 0
     },
     gold_text_hours: {
@@ -295,27 +295,26 @@ const styles =  StyleSheet.create({
          backgroundColor: '#E5E5E5'
      },
     submit: {
-       justifyContent: 'flex-end',
+       position: 'absolute',
+       justifyContent: 'center',
+       alignSelf: 'center',
        width: 200,
-       height: 75,
-       marginTop: 25,
+       height: 70,
        backgroundColor: 'white',
        borderRadius: 50,
     },
     submit_box:{
+        justifyContent: 'center',
         alignSelf: 'stretch',
         height: 125,
         backgroundColor: 'black',
         alignItems: 'center'
     },
-    text: { 
-        width: 200,
-        height: 75,
-        borderRadius: 50,
-        marginTop: 25,
-        padding: 20,
-        paddingTop: 15,
-        fontSize: 30,
+    text: {
+        position: 'absolute', 
+        alignSelf: 'center',
+        fontSize: 34,
+        fontWeight: 'bold',
         textAlign: 'center',
         color: 'black'
     }

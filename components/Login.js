@@ -18,7 +18,8 @@ class Login extends Component {
         this.state = {
             user: null,
             visibleLogin: false,
-            visibleLogout: false
+            visibleLogout: false,
+
         };
     }
     /**
@@ -31,7 +32,7 @@ class Login extends Component {
      * Creates the page and returns it based on weather the user is logged in or not. 
      */
     render() {
-
+        //console.log("In Render")
         const {params} = this.props.navigation.state;
         /**
          * If the page was navigated to from the home screen isLoggedOut will be true
@@ -39,7 +40,8 @@ class Login extends Component {
          */
         if(params){
             if(params.isLoggedOut){
-                this.setState({visibleLogout: true})
+                //console.log("Logging out");
+                this.setState({visibleLogout: true});
                 this._signOut();
                 params.isLoggedOut = false;
             }
@@ -49,11 +51,10 @@ class Login extends Component {
          * displays the page that the user can log in to. 
          */
         if(!this.state.user){
-            console.log("Login.js -- No User found, display Gmail Login Button");
+            //console.log("Login.js -- No User found, display Gmail Login Button");
             return(
                 <View style={styles.container}>
                     <Spinner visible = {this.state.visibleLogin} textContent={'Signing into Google...'} textStyle={{color: '#FFF'}} overlayColor = {'rgba(0, 0, 0, 0.7)'} />
-                    
                     <Image source = {require('./img/paws-screen1-bg.png')} style = {styles.bgImgContainer}>
                         <View style = {styles.loginView}>
                             <TouchableOpacity onPress = { () => {this._signIn();}} style = {styles.buttonContainer}>
@@ -85,7 +86,7 @@ class Login extends Component {
         try {
             await GoogleSignin.hasPlayServices({ autoResolve: true});
             await GoogleSignin.configure({
-                webClientId: '197907029127-9ok2lp3tglmivrfrlvticnbgpthhns01.apps.googleusercontent.com',
+                webClientId: '857691639654-aot23kgou1ug73llupjeeqj7677hel1a.apps.googleusercontent.com',
                 offlineAccess: false
             }).done();
 
@@ -101,6 +102,7 @@ class Login extends Component {
      * Sets the state for the user upon return of a sucessful Google sign in.
      */
     _signIn() {
+        console.log("Inside sign in.");
         this.setState({visibleLogin: true});
         GoogleSignin.signIn()
         .then((user) => {
