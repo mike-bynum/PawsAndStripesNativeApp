@@ -102,7 +102,7 @@ class Validation extends Component {
             <View style={styles.container}>
                 <Spinner visible={this.state.visible} textContent={"Submitting Hours"} textStyle={{color: '#FFF'}} overlayColor = {'rgba(0,0,0,0.7)'} />
                 <Text style={styles.text_small}>
-                    you volunteered for
+                    You volunteered for
                 </Text>
 
                 {/* Passed Hours from Home */}
@@ -186,7 +186,7 @@ const styles =  StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         color: 'white',
-        fontSize: 35,
+        fontSize: 36,
         fontWeight: 'bold',
         marginBottom: 20
     },
@@ -195,15 +195,15 @@ const styles =  StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         color: 'white',
-        fontSize: 20,
+        fontSize: 24,
         marginBottom: 20
     },
      submit: {
        justifyContent: 'center',
        alignItems: 'center',
        width: 220,
-       marginBottom: 25,
-       marginTop: 40,
+       marginBottom: 15,
+       marginTop: 60,
        height: 75,
        backgroundColor: 'white',
        borderRadius: 50,
@@ -220,6 +220,6 @@ const styles =  StyleSheet.create({
         color: '#9c8158'
     },
     edit: {
-        marginTop: 40
+        marginTop: 90
     }
 })

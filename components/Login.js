@@ -26,14 +26,14 @@ class Login extends Component {
      * Upon mounting sets up the google authentication thread.
      */
     componentDidMount(){
-        console.log("Inside Component will mount");
+        //console.log("Inside Component will mount");
         this._setupGoogleSignin();
     }
     /**
      * Creates the page and returns it based on weather the user is logged in or not. 
      */
     render() {
-        console.log("In Render")
+        //console.log("In Render")
         const {params} = this.props.navigation.state;
         /**
          * If the page was navigated to from the home screen isLoggedOut will be true
@@ -56,7 +56,6 @@ class Login extends Component {
             return(
                 <View style={styles.container}>
                     <Spinner visible = {this.state.visibleLogin} textContent={'Signing into Google...'} textStyle={{color: '#FFF'}} overlayColor = {'rgba(0, 0, 0, 0.7)'} />
-                    <Spinner visible = {this.state.visibleLogout} textContent={'Signing out of Google...'} textStyle={{color: '#FFF'}} overlayColor = {'rgba(0, 0, 0, 0.7)'} />
                     <Image source = {require('./img/paws-screen1-bg.png')} style = {styles.bgImgContainer}>
                         <View style = {styles.loginView}>
                             <TouchableOpacity onPress = { () => {this._signIn();}} style = {styles.buttonContainer}>
