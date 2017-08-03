@@ -295,24 +295,24 @@ const styles =  StyleSheet.create({
          backgroundColor: '#E5E5E5'
      },
     submit: {
-       justifyContent: 'flex-end',
+       position: 'absolute',
+       justifyContent: 'center',
        alignSelf: 'center',
        width: 200,
        height: 70,
-       marginTop: 40,
        backgroundColor: 'white',
        borderRadius: 50,
     },
     submit_box:{
+        justifyContent: 'center',
         alignSelf: 'stretch',
         height: 125,
         backgroundColor: 'black',
         alignItems: 'center'
     },
-    text: { 
+    text: {
+        position: 'absolute', 
         alignSelf: 'center',
-        //padding: 15,
-        marginBottom: 13,
         fontSize: 34,
         fontWeight: 'bold',
         textAlign: 'center',
