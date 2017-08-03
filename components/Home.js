@@ -296,9 +296,10 @@ const styles =  StyleSheet.create({
      },
     submit: {
        justifyContent: 'flex-end',
+       alignSelf: 'center',
        width: 200,
        height: 70,
-       marginTop: 25,
+       marginTop: 40,
        backgroundColor: 'white',
        borderRadius: 50,
     },
@@ -309,7 +310,9 @@ const styles =  StyleSheet.create({
         alignItems: 'center'
     },
     text: { 
-        padding: 15,
+        alignSelf: 'center',
+        //padding: 15,
+        marginBottom: 13,
         fontSize: 34,
         fontWeight: 'bold',
         textAlign: 'center',
