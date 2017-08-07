@@ -15,6 +15,10 @@ import ValidationScreen from './Validation.js'
     constructor(props){
         super(props);
         this.handleBackButton = this.handleBackButton.bind(this);
+        this._setHour = this._setHour.bind(this);
+        this._handleDatePicked = this._handleDatePicked.bind(this);
+        this._hideDatepicker = this._hideDatepicker.bind(this);
+        this._showDatepicker = this._showDatepicker.bind(this);
     }
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
@@ -107,7 +111,7 @@ import ValidationScreen from './Validation.js'
     if(params) {
         if(params.hours){
             index = params.hours - 1;
-            this.setState({hours: params.hours});
+            this._setHour(params.hours);
         }
         if(params.user){
             userName = params.user.name;

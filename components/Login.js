@@ -19,16 +19,28 @@ class Login extends Component {
             user: null,
             visibleLogin: false,
             visibleLogout: false,
-
         };
+        this.setLoginSpinner = this.setLoginSpinner.bind(this);
+        this.setUser = this.setUser.bind(this);
+        this.setLogoutSpinner = this.setLogoutSpinner.bind(this);
     }
     /**
      * Upon mounting sets up the google authentication thread.
      */
     componentDidMount(){
-        //console.log("Inside Component will mount");
         this._setupGoogleSignin();
     }
+
+    setLoginSpinner(value) {
+        this.setState({visibleLogin: value});
+    }
+    setLogoutSpinner(value){
+            this.setState({visibleLogout : value});
+    }
+    setUser(user, value){
+        this.setState({user: user, visibleLogin: value});
+    }
+
     /**
      * Creates the page and returns it based on weather the user is logged in or not. 
      */
@@ -42,7 +54,7 @@ class Login extends Component {
         if(params){
             if(params.isLoggedOut){
                 //console.log("Logging out");
-                this.setState({visibleLogout: true});
+                this.setLogoutSpinner(this.state.user, true);
                 this._signOut();
                 params.isLoggedOut = false;
             }
@@ -52,13 +64,17 @@ class Login extends Component {
          * displays the page that the user can log in to. 
          */
         if(!this.state.user){
+            if(this.state.visibleLogin){
+                this._signIn();
+            }
             //console.log("Login.js -- No User found, display Gmail Login Button");
             return(
                 <View style={styles.container}>
                     <Spinner visible = {this.state.visibleLogin} textContent={'Signing into Google...'} textStyle={{color: '#FFF'}} overlayColor = {'rgba(0, 0, 0, 0.7)'} />
+                    <Spinner visible = {this.state.visibleLogout} textContent={'Signing out of Google...'} textStyle={{color: '#FFF'}} overlayColor = {'rgba(0, 0, 0, 0.7)'} />
                     <Image source = {require('./img/paws-screen1-bg.png')} style = {styles.bgImgContainer}>
                         <View style = {styles.loginView}>
-                            <TouchableOpacity onPress = { () => {this._signIn();}} style = {styles.buttonContainer}>
+                            <TouchableOpacity onPress = { () => {this.setLoginSpinner(true);}} style = {styles.buttonContainer}>
                                 <Image source = {require('./img/google_button_icon.png')} style = {styles.buttonImage} />
                                 <Text style = {styles.buttonText}>
                                     Sign in with Google
@@ -93,8 +109,8 @@ class Login extends Component {
                 return;
             });
 
-            const user = await GoogleSignin.currentUserAsync();
-            this.setState({user});
+            //const user = await GoogleSignin.currentUserAsync();
+            //this.setState({user});
         }
         catch(err) {
             console.log("Play services error", err.code, err.message); 
@@ -104,17 +120,14 @@ class Login extends Component {
     /**
      * Sets the state for the user upon return of a sucessful Google sign in.
      */
-    _signIn() {
-        console.log("Inside sign in.");
-        this.setState({visibleLogin: true});
+    _signIn() {       
         GoogleSignin.signIn()
         .then((user) => {
-            this.setState({visibleLogin: false});
-            this.setState({user: user});
+            this.setUser(user, false);
         })
         .catch((err) => {
             console.log('WRONG SIGNIN', err.stack);
-            this.setState({visibleLogin: false});
+            this.setUser(null, false);
         })
         .done();
   }
@@ -123,11 +136,12 @@ class Login extends Component {
    */
   _signOut() {  
     GoogleSignin.signOut().then(() =>{
-        this.setState({visibleLogout: false});
-        this.setState({user: null});
+        this.setUser(null, false);
+        //this.setUser(null);
     })
     .catch((err) => {
         console.log("Error in sign out" + err);
+        this.setUser(this.state.user, false);
     })
     .done();
     }

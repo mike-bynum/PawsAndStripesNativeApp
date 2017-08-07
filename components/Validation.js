@@ -14,9 +14,11 @@ class Validation extends Component {
         super(props);
         this.state = {
             isPress: false,
-            visible: false
+            submitted: false
         }
-        this.handleBackButton = this.handleBackButton.bind(this); 
+        this.handleBackButton = this.handleBackButton.bind(this);
+        this.setSubmitted = this.setSubmitted.bind(this);
+        this.setPress = this.setPress.bind(this);
     }
 
     componentDidMount() {
@@ -47,6 +49,14 @@ class Validation extends Component {
             )
         };
         return true;
+    }
+
+    setSubmitted(value){
+        this.setState({submitted: value});
+    }
+
+    setPress(value){
+        this.setState({isPress: value});
     }
 
     static navigationOptions = {
@@ -100,7 +110,7 @@ class Validation extends Component {
              * Main Container
              */
             <View style={styles.container}>
-                <Spinner visible={this.state.visible} textContent={"Submitting Hours"} textStyle={{color: '#FFF'}} overlayColor = {'rgba(0,0,0,0.7)'} />
+                <Spinner visible={this.state.submitted} textContent={"Submitting Hours"} textStyle={{color: '#FFF'}} overlayColor = {'rgba(0,0,0,0.7)'} />
                 <Text style={styles.text_small}>
                     You volunteered for
                 </Text>
@@ -123,30 +133,28 @@ class Validation extends Component {
                     is that correct?
                 </Text>
                 {/* Button to submit correct user information */}
-                <TouchableOpacity style = {styles.submit} disabled={this.state.isPress}  onPress={   (event) => {
+                <TouchableOpacity style = {styles.submit} onPress={   (event) => {
                     /**
                     * Initialize the request to the server
                     */
-                    this.setState({visible: true});
+                    this.setSubmitted(true);
                     if(!this.state.isPress) {
-                        this.state.isPress = true; 
+                        this.setPress(true); 
                         console.log("Attempting to Submit Hours to backend"); 
                         var request = new XMLHttpRequest();
                         request.onreadystatechange =  (e) => {
                             if (request.readyState != 4) {
                                 console.log('Could not communicate with the server');
                                 console.log('Request Status: ' + request.readyState);
-                                //this.setState({visible: false}); 
                                 return;
                             }
                             if (request.status === 200) {
                                 console.log('Communication to backend was successful'); 
                                 console.log('', request.responseText);
-                                this.setState({visible: false});
-                                this.props.navigation.dispatch(resetAction) 
+                                this.setSubmitted(false);
+                                this.props.navigation.dispatch(resetAction); 
                             } else {
                                 console.warn('error');
-                                //this.setState({visible: false});
                             }
                         };
                         var query = 'http://www.academicstudysolutions.com/pawsstripes/?email='+email +'&fname=' + fName + '&lname=' + lName + '&hours=' + hours + '&date=' + dateString;
