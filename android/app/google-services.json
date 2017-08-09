@@ -1,64 +1,49 @@
 {
   "project_info": {
-    "project_number": "857691639654",
-    "project_id": "paws-and-stripes-v2"
+    "project_number": "197907029127",
+    "project_id": "paws-and-stripes-175016"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:857691639654:android:91c332ad6ec8ede7",
-        "android_client_info": {
-          "package_name": "com.pawsandstripes"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "857691639654-aot23kgou1ug73llupjeeqj7677hel1a.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyA-DNVpU53UGuGLmq5PkKmnbHnXIOOHWio"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 1
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:857691639654:android:4a6cfe46df3b50b6",
+        "mobilesdk_app_id": "1:197907029127:android:4a6cfe46df3b50b6",
         "android_client_info": {
           "package_name": "com.pawsandstripesnativeapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "857691639654-9kg7vh4g0eg5bphtnbj8t2smcq9elcha.apps.googleusercontent.com",
+          "client_id": "197907029127-btqrebmi2sa2tjdbvjfiog2978lof4kc.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "197907029127-oc554rdkbp9n26hfq2b9ll898k7lbot7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.pawsandstripesnativeapp",
-            "certificate_hash": "7aabfe84281c62363f91d5e494837f43e852c262"
+            "certificate_hash": "b5b77009e79617cb0194de6892b0d25bf35e997f"
           }
         },
         {
-          "client_id": "857691639654-aot23kgou1ug73llupjeeqj7677hel1a.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "197907029127-issteqeuh083o08r1d69mlfb857dml6h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pawsandstripesnativeapp",
+            "certificate_hash": "3e1f15de09df53633c59f15acd78862657cad2fa"
+          }
+        },
+        {
+          "client_id": "197907029127-2odftrii3gj385n6bl1ge7ikmciigukg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pawsandstripesnativeapp",
+            "certificate_hash": "471071725f5721617c4225cf4487605eca8d3c5f"
+          }
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA-DNVpU53UGuGLmq5PkKmnbHnXIOOHWio"
+          "current_key": "AIzaSyCwpW4Mvl6k7XEJBmH262HJg95Bc0APLBE"
         }
       ],
       "services": {
